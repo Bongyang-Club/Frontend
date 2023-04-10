@@ -1,13 +1,20 @@
-import Head from 'next/head';
+import React from "react";
+import Header from "@/components/header";
+import Club from "@/components/club/promotion";
+import ClubHome from "@/components/club/subscribe";
 
-const MainPage = () => {
+const Main = () => {
   return (
     <>
-      <main>
-        
-      </main>
+      <Header />
+      <div className="bg-[#F5F5F5] min-h-screen flex flex-row justify-center">
+        <div className="flex  flex-col">
+          <ClubHome />
+          <Club />
+        </div>
+      </div>
     </>
   );
 };
 
-export default MainPage;
+export default Main;

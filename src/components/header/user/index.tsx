@@ -15,21 +15,23 @@ const User = () => {
       </div>
       <FontAwesomeIcon
         icon={faAngleRight}
-        className="text-[#D97706] pt-1 w-10"
+        className="text-[#D97706] pt-1 w-7"
       />
     </div>
   ) : (
     <div
-      className="flex flex-row items-center cursor-pointer"
+      className="flex flex-row cursor-pointer"
       onClick={() => setCheck(false)}
     >
-      <div className="text-[#D97706] font-medium pr-2 select-none">
-        {user.studentId} {user.name} 님
+      <div className="flex flex-row items-center">
+        <div className="text-[#D97706] font-medium pr-2 select-none">
+          {user.studentId} {user.name} 님
+        </div>
+        <FontAwesomeIcon
+          icon={faAngleDown}
+          className="text-[#D97706] pt-1 w-7"
+        />
       </div>
-      <FontAwesomeIcon
-        icon={faAngleDown}
-        className="text-[#D97706] pt-1 w-10"
-      />
       <div className="absolute top-16 z-10 mt-5 flex w-[10rem] -translate-x-5">
         <div className="flex-auto w-[24px] rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
           <div className="group relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">

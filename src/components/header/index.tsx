@@ -6,6 +6,7 @@ import Link from "next/link";
 
 const Header = () => {
   const [check, setCheck] = useState(false);
+  const [user, setUser] = useState({ studentId: 3208, name: "박대형" });
 
   return (
     <div className=" border-0 border-b border-[#DFDFDF] flex flex-row justify-center w-full">
@@ -22,11 +23,11 @@ const Header = () => {
         </div>
         {!check ? (
           <div
-            className="flex flex-row items-center"
+            className="flex flex-row items-center cursor-pointer"
             onClick={() => setCheck(true)}
           >
-            <div className="text-[#D97706] font-medium pr-2">
-              3208 박대형 님
+            <div className="text-[#D97706] font-medium pr-2 select-none">
+              {user.studentId} {user.name} 님
             </div>
             <FontAwesomeIcon
               icon={faAngleRight}
@@ -35,11 +36,11 @@ const Header = () => {
           </div>
         ) : (
           <div
-            className="flex flex-row items-center"
+            className="flex flex-row items-center cursor-pointer"
             onClick={() => setCheck(false)}
           >
-            <div className="text-[#D97706] font-medium pr-2">
-              3208 박대형 님
+            <div className="text-[#D97706] font-medium pr-2 select-none">
+              {user.studentId} {user.name} 님
             </div>
             <FontAwesomeIcon
               icon={faAngleDown}

@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@/components/header";
-import Club from "@/components/club/promotion";
-import ClubHome from "@/components/club/subscribe";
+import Club from "@/components/club/main/promotion";
+import ClubHome from "@/components/club/main/subscribe";
 
 const Main = () => {
   return (

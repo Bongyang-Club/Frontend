@@ -1,5 +1,5 @@
 import React from "react";
-import Content from "@/components/club/promotion/content";
+import Content from "@/components/club/main/promotion/content";
 
 const Club = () => {
   return (

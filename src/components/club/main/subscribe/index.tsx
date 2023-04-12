@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Content from "@/components/club/subscribe/content";
+import Content from "@/components/club/main/subscribe/content";
 
 const Club = () => {
   const [user, setUser] = useState({ role: "admin" });

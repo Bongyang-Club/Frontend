@@ -15,7 +15,7 @@ const Introduce = ({ user }: Introduce) => {
   return (
     <div className="flex flex-row bg-[#Ffffff] max-w-4xl w-full drop-shadow-xl mt-10">
       {user.role === "admin" ? <AdminMenu /> : <StudentMenu />}
-      <Img />
+      <Img user={user} />
     </div>
   );
 };

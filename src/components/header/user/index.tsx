@@ -33,7 +33,7 @@ const User = () => {
         />
       </div>
       <div className="absolute top-16 z-10 mt-5 flex w-[10rem] -translate-x-5">
-        <div className="flex-auto w-[24px] rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
+        <div className="flex-auto rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
           <div className="group relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
             <div>
               <a href="#" className="font-regular text-gray-900">

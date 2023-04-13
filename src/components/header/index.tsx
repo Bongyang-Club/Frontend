@@ -5,7 +5,7 @@ import User from "@/components/header/user";
 
 const Header = () => {
   return (
-    <div className=" border-0 border-b border-[#DFDFDF] flex flex-row justify-center w-full">
+    <div className="sticky top-0 z-50 border-0 border-b bg-white border-[#DFDFDF] flex flex-row justify-center w-full">
       <div className="flex flex-row justify-between h-[64px] items-center max-w-6xl w-full px-5">
         <div className="w-[128px] h-[48px]">
           <Link href="/">

@@ -35,7 +35,7 @@ const Img = ({ user }: Img) => {
 
   return (
     <div className="cursor-pointer max-w-[30rem] w-full h-full overflow-hidden flex justify-center items-center ">
-      {user.role === "admin" ? (
+      {user.role === "ROLE_CLUB_LEADER" ? (
         <>
           <div className="relative w-[500px] h-[500px] overflow-hidden flex justify-center items-center">
             <img

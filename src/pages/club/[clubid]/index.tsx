@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 const ClubHome = () => {
   const router = useRouter();
   const clubid = router.query;
-  const [user, setUser] = useState({ role: "admin" });
+  const [user, setUser] = useState({ role: "ROLE_CLUB_LEADER" });
 
   return (
     <>

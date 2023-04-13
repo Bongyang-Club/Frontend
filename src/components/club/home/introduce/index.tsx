@@ -14,7 +14,7 @@ type User = {
 const Introduce = ({ user }: Introduce) => {
   return (
     <div className="flex flex-row bg-[#Ffffff] max-w-4xl w-full drop-shadow-xl mt-10">
-      {user.role === "admin" ? <AdminMenu /> : <StudentMenu />}
+      {user.role === "ROLE_CLUB_LEADER" ? <AdminMenu /> : <StudentMenu />}
       <Img user={user} />
     </div>
   );

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const Menu = () => {
   const [club, setClub] = useState({
     name: "봉양클럽",
-    admin: "김무일",
+    leader: "김무일",
     teacher: "이현정",
   });
 
@@ -21,7 +21,7 @@ const Menu = () => {
         value="공지보기"
       />
       <div className="mt-8 text-[#B1B1B1] w-[11rem]">
-        동아리장 : {club.admin}
+        동아리장 : {club.leader}
       </div>
       <div className="mt-2 text-[#B1B1B1] w-[11rem]">
         동아리장 : {club.teacher} 선생님

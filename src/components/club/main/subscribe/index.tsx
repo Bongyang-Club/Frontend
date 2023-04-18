@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const Club = () => {
   const [user, setUser] = useState({ role: "ROLE_CLUB_LEADER" });
+  const [id, setId] = useState(1);
   return (
     <div className="flex flex-col bg-[#Ffffff] max-w-4xl w-full px-10 pt-7 pb-10 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10">
       <div className="flex flex-row justify-between items-center">
@@ -18,7 +19,9 @@ const Club = () => {
         ) : null}
       </div>
       <div className="grid grid-cols-3 gap-x-5 gap-y-10 justify-items-center mt-3">
-        <Content />
+        <Link href={`/club/${id}`}>
+          <Content />
+        </Link>
       </div>
     </div>
   );

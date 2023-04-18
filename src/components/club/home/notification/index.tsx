@@ -21,7 +21,7 @@ const Notification = ({ user }: Notification) => {
     },
   });
   return (
-    <div className="flex flex-col bg-[#Ffffff] max-w-4xl w-full px-10 pt-7 pb-10 drop-shadow-xl mt-10">
+    <div className="flex flex-col bg-[#Ffffff] max-w-4xl w-full px-10 pt-7 pb-10 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10">
       <div className="flex flex-row justify-between items-center mb-3">
         <div className="flex flex-col justify-start">
           <div className="mb-1 font-medium text-lg">동아리장 {club.leader}</div>

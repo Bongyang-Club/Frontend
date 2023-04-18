@@ -2,7 +2,7 @@ const Form = () => {
   return (
     <div className="w-full h-[100.3rem]">
       <div className="max-w-4xl h-[100rem] mt-10 mx-auto shadow-[0_0_8px_0_rgba(0,0,0,0.3)] flex justify-center bg-white ">
-        <div className="mt-[5rem] w-[38rem] h-[66rem] relative">
+        <div className="mt-[5rem] w-[38rem] relative">
           {/* 탑 */}
           <div className="w-full flex justify-between">
             <span className="font-bold font text-3xl">동아리 홍보 신청</span>

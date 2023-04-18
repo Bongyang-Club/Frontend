@@ -1,4 +1,4 @@
-import Form from "@/components/club/promotion";
+import Form from "@/components/club/promotion/form";
 
 const PromotionPage = () => {
   return <Form />;

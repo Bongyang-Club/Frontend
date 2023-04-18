@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AdminMenu from "@/components/club/home/introduce/menu/admin";
 import StudentMenu from "@/components/club/home/introduce/menu/student";
 import Img from "@/components/club/home/introduce/img";
+import Link from "next/link";
 
 type Introduce = {
   user: User;
@@ -13,9 +14,11 @@ type User = {
 
 const Introduce = ({ user }: Introduce) => {
   return (
-    <div className="flex flex-row bg-[#Ffffff] max-w-4xl w-full drop-shadow-xl mt-10">
+    <div className="flex flex-row bg-[#Ffffff] max-w-4xl w-full shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10">
       {user.role === "ROLE_CLUB_LEADER" ? <AdminMenu /> : <StudentMenu />}
-      <Img user={user} />
+      <Link href={`/club/${id}`}>
+        <Img user={user} />
+      </link>
     </div>
   );
 };

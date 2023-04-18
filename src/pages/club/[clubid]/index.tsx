@@ -11,7 +11,6 @@ const ClubHome = () => {
 
   return (
     <>
-      <Header />
       <div
         className="bg-[#F5F5F5] flex flex-row justify-center"
         style={{ minHeight: "calc(100vh - 65px)" }}

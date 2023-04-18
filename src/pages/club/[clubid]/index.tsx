@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Introduce from "@/components/club/home/introduce";
 import Notification from "@/components/club/home/notification";
-import Header from "@/components/header";
 import { useRouter } from "next/router";
 
 const ClubHome = () => {
@@ -11,7 +10,6 @@ const ClubHome = () => {
 
   return (
     <>
-      <Header />
       <div
         className="bg-[#F5F5F5] flex flex-row justify-center"
         style={{ minHeight: "calc(100vh - 65px)" }}

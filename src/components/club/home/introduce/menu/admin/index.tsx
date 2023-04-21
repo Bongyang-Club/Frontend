@@ -1,7 +1,10 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const Menu = () => {
+  const router = useRouter();
+  const clubid = router.query;
   const [club, setClub] = useState({ name: "봉양클럽" });
 
   return (
@@ -32,7 +35,7 @@ const Menu = () => {
         가입신청 확인
       </Link>
       <Link
-        href="/member"
+        href={"/club/" + clubid + "/member"}
         className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
       >
         동아리원 확인

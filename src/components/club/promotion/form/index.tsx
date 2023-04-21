@@ -6,7 +6,7 @@ const Form = () => {
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <div className="max-w-4xl w-full h-full my-10 py-20 shadow-xl flex justify-center bg-white ">
+      <div className="max-w-4xl w-full h-full my-10 py-20 shadow-[0_0_8px_0_rgba(0,0,0,0.3)]  flex justify-center bg-white ">
         <div className="w-[38rem]">
           {/* 탑 */}
           <div className="w-full flex justify-between">

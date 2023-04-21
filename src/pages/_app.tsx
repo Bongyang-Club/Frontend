@@ -9,7 +9,7 @@ import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="bg-[#F5F5F5]">
+    <div className="bg-[#F5F5F5] min-h-screen">
       <Head>
         <title>Bongyang-Club</title>
       </Head>

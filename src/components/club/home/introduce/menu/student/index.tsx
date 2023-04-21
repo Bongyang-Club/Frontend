@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Menu = () => {
@@ -10,16 +11,18 @@ const Menu = () => {
   return (
     <div className="max-w-[26rem] w-full flex flex-col justify-center items-center">
       <div className="select-none font-semibold text-4xl mb-8">{club.name}</div>
-      <input
-        type="button"
-        className="cursor-pointer border py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
-        value="탈퇴하기"
-      />
-      <input
-        type="button"
-        className="cursor-pointer border py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
-        value="공지보기"
-      />
+      <Link
+        href="/"
+        className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
+      >
+        탈퇴하기
+      </Link>
+      <Link
+        href="/"
+        className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
+      >
+        공지보기
+      </Link>
       <div className="mt-8 text-[#B1B1B1] w-[11rem]">
         동아리장 : {club.leader}
       </div>

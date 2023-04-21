@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 const Form = () => {
+  const [firstChecked, setFirstChecked] = useState(false);
+  const [secondChecked, setSecondChecked] = useState(false);
   return (
     <div className="w-full h-full flex justify-center items-center">
       <div className="max-w-4xl w-full h-full my-10 py-20 shadow-xl flex justify-center bg-white ">
@@ -18,125 +22,112 @@ const Form = () => {
             />
           </div>
           {/* 지원방법 */}
-          <div className="w-full flex items-center justify-between mt-[1.5rem] relative">
-            <span className="text-lg text-[#676767] leading-10">지원방법</span>
-            <div className="w-[28.5rem] flex items-center">
-              <div className="w-[6rem] flex align-middle items-center">
-                <input type="checkBox" className="w-[1.2rem] h-[1.2rem]" />
-                <span className="ml-[0.7rem] leading-10 text-md text-[#B1B1B1] ">
-                  구글폼
-                </span>
-              </div>
-              <div className="w-[6rem] ml-[2rem] flex align-middle items-center">
-                <input type="checkBox" className="w-[1.2rem] h-[1.2rem]" />
-                <span className="ml-[0.7rem] leading-10 text-md text-[#B1B1B1] ">
-                  면접
-                </span>
-              </div>
-              <div className="w-[6rem] ml-[2rem] flex align-middle items-center">
-                <input type="checkBox" className="w-[1.2rem] h-[1.2rem]" />
-                <span className="ml-[0.7rem] leading-10 text-md text-[#B1B1B1] ">
-                  테스트
-                </span>
+          <div className="w-full mt-[1.5rem] relative">
+            <div className="flex items-center justify-between">
+              <span className="text-lg text-[#676767] leading-10">
+                지원방법
+              </span>
+              <div className="w-[28.5rem] flex items-center">
+                <div className="w-[8rem] flex align-middle items-center">
+                  <input
+                    type="checkBox"
+                    className="w-[1.2rem] h-[1.2rem]"
+                    checked={firstChecked}
+                    onChange={({ target: { checked } }) =>
+                      setFirstChecked(checked)
+                    }
+                  />
+                  <span className="ml-[0.7rem] leading-10 text-md text-[#B1B1B1] ">
+                    1차(구글폼)
+                  </span>
+                </div>
+                <div className="w-[9rem] ml-[2rem] flex align-middle items-center justify-between">
+                  <div className="flex align-middle items-center">
+                    <input
+                      type="checkBox"
+                      className="w-[1.2rem] h-[1.2rem]"
+                      checked={secondChecked}
+                      onChange={({ target: { checked } }) =>
+                        setSecondChecked(checked)
+                      }
+                    />
+                    <span className="ml-[0.7rem] leading-10 text-md text-[#B1B1B1]  ">
+                      2차
+                    </span>
+                  </div>
+                  <div className="flex align-middle items-center">
+                    <select disabled={!firstChecked}>
+                      <option>테스트</option>
+                      <option>면접</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
-            <span className="absolute right-0 bottom-0 translate-y-6 text-[#B1B1B1] text-xs font-thin">
+            <span className="text-[#B1B1B1] text-xs font-thin w-full flex justify-end">
               ※ 선택하지 않으면 바로 동아리에 가입됩니다.
             </span>
           </div>
           {/* 정보 */}
           <div className="w-full flex justify-end items-center ">
-            <div className="w-[35rem] mt-[2rem]">
-              {/* 링크 */}
-              <div className="w-full flex justify-between">
-                <span className="text-lg text-[#676767] leading-10">링크</span>
-                <input className="w-[28.5rem] text-lg px-2 py-1 border border-[#DDDDDD]" />
-              </div>
-              {/* 신청기간 */}
-              <div className="w-full flex justify-between mt-[2rem]">
-                <span className="text-lg text-[#676767] leading-10">
-                  신청기간
-                </span>
-                <input className="w-[28.5rem] text-lg px-2 py-1 border border-[#DDDDDD]" />
-              </div>
-              {/* 면접 */}
-              <div className="w-full flex justify-between mt-[2rem]">
-                <span className="text-lg text-[#676767] leading-10">면접</span>
-                <div className="w-[28.5rem] flex relative">
-                  <div className="flex align-middle">
-                    <input
-                      type="radio"
-                      name="interview"
-                      className="w-[1.4rem] accent-gray-500"
-                    />
-                    <span className="ml-2 leading-9 text-md text-[#B1B1B1]">
-                      개인별
+            <div className="w-[35rem]">
+              {firstChecked ? (
+                <div className="mt-[1rem]">
+                  {/* 링크 */}
+                  <div className="w-full flex justify-between">
+                    <span className="text-lg text-[#676767] leading-10">
+                      링크
                     </span>
+                    <input className="w-[28.5rem] text-lg px-2 py-1 border border-[#DDDDDD]" />
                   </div>
-                  <div className="ml-8 flex align-middle">
-                    <input
-                      type="radio"
-                      name="interview"
-                      className="w-[1.4rem] accent-gray-500"
-                    />
-                    <span className="ml-2 leading-9 text-md text-[#B1B1B1]">
-                      전체
+                  {/* 신청기간 */}
+                  <div className="w-full flex justify-between mt-2">
+                    <span className="text-lg text-[#676767] leading-10">
+                      신청기간
                     </span>
+                    <input className="w-[28.5rem] text-lg px-2 py-1 border border-[#DDDDDD]" />
                   </div>
-                  <span className="absolute bottom-0 translate-y-7 text-[#B1B1B1] text-xs font-thin">
+                </div>
+              ) : null}
+              {secondChecked ? (
+                <div className="w-full">
+                  <div className="w-full flex justify-between mt-2">
+                    <span className="text-lg text-[#676767] leading-10">
+                      면접
+                    </span>
+                    <div className="w-[28.5rem] flex relative">
+                      <div className="flex align-middle">
+                        <input
+                          type="radio"
+                          name="interview"
+                          className="w-[1.4rem] accent-gray-500"
+                        />
+                        <span className="ml-2 leading-9 text-md text-[#B1B1B1]">
+                          개인별
+                        </span>
+                      </div>
+                      <div className="ml-8 flex align-middle">
+                        <input
+                          type="radio"
+                          name="interview"
+                          className="w-[1.4rem] accent-gray-500"
+                        />
+                        <span className="ml-2 leading-9 text-md text-[#B1B1B1]">
+                          전체
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-[#B1B1B1] text-xs font-thin w-full flex justify-end">
                     ※ 개인별의 경우 신청자 확인후 면접 일정을 공지해주시기
                     바랍니다.
                   </span>
                 </div>
-              </div>
-              {/* 테스트 */}
-              <div className="w-full flex justify-between mt-[2rem]">
-                <span className="text-lg text-[#676767] leading-10">
-                  테스트
-                </span>
-                <div className="w-[28.5rem] flex">
-                  <div className="flex align-middle">
-                    <input
-                      type="radio"
-                      name="interview"
-                      className="w-[1.4rem] accent-gray-500"
-                    />
-                    <span className="ml-2 leading-9 text-md text-[#B1B1B1]">
-                      개인별
-                    </span>
-                  </div>
-                  <div className="ml-8 flex align-middle">
-                    <input
-                      type="radio"
-                      name="interview"
-                      className="w-[1.4rem] accent-gray-500"
-                    />
-                    <span className="ml-2 leading-9 text-md text-[#B1B1B1]">
-                      전체
-                    </span>
-                  </div>
-                </div>
-              </div>
-              {/* 시간 */}
-              <div className="w-full flex justify-between mt-[1.5rem]">
-                <span className="text-lg text-[#676767] leading-10">시간</span>
-                <input className="w-[28.5rem] text-lg px-2 py-1 border border-[#DDDDDD]" />
-              </div>
-              {/* 장소 */}
-              <div className="w-full flex justify-between mt-[1.5rem]">
-                <span className="text-lg text-[#676767] leading-10">장소</span>
-                <div className="relative flex">
-                  <input className="w-[28.5rem] text-lg px-2 py-1 border border-[#DDDDDD]" />
-                  <span className="absolute bottom-0 translate-y-10 text-[#B1B1B1] text-[0.8rem]">
-                    ※ 아직 정해지지 않았다면 신청자 확인후 공지해주시기
-                    바랍니다.
-                  </span>
-                </div>
-              </div>
+              ) : null}
             </div>
           </div>
           {/* 모집대상 */}
-          <div className="w-full flex justify-between mt-[4rem]">
+          <div className="w-full flex justify-between mt-[2rem]">
             <span className="text-lg text-[#676767] leading-10">모집대상</span>
             <div className="flex flex-col">
               <div className="w-[28.5rem]">

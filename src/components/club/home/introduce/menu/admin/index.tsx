@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import React, { useState } from "react";
 
-const Menu = () => {
-  const router = useRouter();
-  const clubid = router.query;
+type Menu = {
+  router: ParsedUrlQuery;
+};
+
+const Menu = ({ router }: Menu) => {
   const [club, setClub] = useState({ name: "봉양클럽" });
 
   return (
@@ -29,13 +31,13 @@ const Menu = () => {
         동아리 홍보하기
       </Link>
       <Link
-        href="/"
+        href={`/club/${router.clubid}/application`}
         className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
       >
         가입신청 확인
       </Link>
       <Link
-        href={"/club/" + clubid + "/member"}
+        href={`/club/${router.clubid}/member`}
         className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
       >
         동아리원 확인

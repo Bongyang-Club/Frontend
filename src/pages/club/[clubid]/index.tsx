@@ -15,7 +15,7 @@ const ClubHome = () => {
         style={{ minHeight: "calc(100vh - 65px)" }}
       >
         <div className="flex flex-col max-w-4xl w-full">
-          <Introduce user={user} />
+          <Introduce user={user} router={clubid} />
           <Notification user={user} />
         </div>
       </div>

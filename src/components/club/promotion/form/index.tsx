@@ -3,6 +3,7 @@ import { useState } from "react";
 const Form = () => {
   const [firstChecked, setFirstChecked] = useState(false);
   const [secondChecked, setSecondChecked] = useState(false);
+
   return (
     <div className="w-full h-full flex justify-center items-center">
       <div className="max-w-4xl w-full h-full my-10 py-20 shadow-xl flex justify-center bg-white ">
@@ -56,7 +57,14 @@ const Form = () => {
                     </span>
                   </div>
                   <div className="flex align-middle items-center">
-                    <select disabled={!firstChecked}>
+                    <select
+                      disabled={!secondChecked}
+                      className={
+                        secondChecked
+                          ? ""
+                          : "bg-[#F8F8F8] border border-1 rounded-sm"
+                      }
+                    >
                       <option>테스트</option>
                       <option>면접</option>
                     </select>

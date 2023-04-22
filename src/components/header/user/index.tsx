@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const User = () => {
   const [check, setCheck] = useState(false);
@@ -43,9 +44,9 @@ const User = () => {
           </div>
           <div className="group relative text-center py-3 px-4 hover:bg-gray-50  rounded-b-lg">
             <div>
-              <a href="#" className="font-regular text-gray-900">
+              <Link href="/login" className="font-regular text-gray-900">
                 로그아웃
-              </a>
+              </Link>
             </div>
           </div>
         </div>

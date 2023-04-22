@@ -16,7 +16,7 @@ const Checkbox = ({
   onChange,
 }: Checkbox) => {
   return (
-    <label className={style}>
+    <label className={style + " cursor-pointer"}>
       <input
         type="checkbox"
         id={id}

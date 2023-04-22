@@ -9,16 +9,25 @@ const Form = () => {
   const [pw, setPw] = useState("");
 
   const send = () => {
-    console.log("adfasdfA");
     const data = {
       si_number: id,
       password: pw,
     };
 
+    // axios
+    //   .post("/api/test/add")
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((e) => console.log(e));
+
     axios
       .post("/api/login", data)
       .then((res) => {
         console.log(res);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res.data.token}`;
       })
       .catch((e) => console.log(e));
   };
@@ -82,12 +91,12 @@ const Form = () => {
             로그인 유지
           </label>
         </div>
-        <div className="bg-[#D97706] flex justify-center text-white py-2 px-10 my-5 mb-8 rounded-sm">
+        <div className="bg-[#D97706] flex justify-center text-white my-5 mb-8 rounded-sm">
           <input
             type="button"
             value="로그인"
             onClick={() => send()}
-            className="w-full h-full"
+            className="w-full h-full py-2 px-10"
           />
         </div>
         <div className="my-2 text-[#949494] text-sm font-light">

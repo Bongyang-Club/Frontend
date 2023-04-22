@@ -6,17 +6,41 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const List = () => {
   const [data, setData] = useState([
     { i: "0", name: "박대형", id: "3208", date: "2023-03-20" },
     { i: "1", name: "임준형", id: "3208", date: "2023-03-20" },
   ]);
-  const [checked, setChecked] = useState<any>({ "1": false, "2": false });
+  const [checked, setChecked] = useState<any>([]);
   const [checkedAll, setCheckedAll] = useState(false);
 
-  const checkAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    load();
+  }, []);
+
+  const load = () => {
+    console.log("=======================");
+
+    const body = {
+      memberId: 1207,
+      schoolClubId: 2,
+    };
+
+    // todo application list api connection
+    axios
+      .post("/api/schoolclub/application/list", body)
+      .then((res) => {
+        console.log(res);
+        setData(res.data.user);
+        checkAll({ target: { checked: false } });
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const checkAll = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const newCheckAll = e.target.checked;
     let newCheck = {};
     for (let i = 0; i < data.length; i++) {
@@ -56,10 +80,13 @@ const List = () => {
             />
           </div>
           <div className="w-10 flex justify-center">
-            <FontAwesomeIcon icon={faArrowRotateRight} />
+            <FontAwesomeIcon
+              icon={faArrowRotateRight}
+              className="cursor-pointer"
+            />
           </div>
           <div className="w-10 flex justify-center">
-            <FontAwesomeIcon icon={faTrashCan} />
+            <FontAwesomeIcon icon={faTrashCan} className="cursor-pointer" />
           </div>
           <div className="flex items-center ml-auto">
             <input
@@ -67,7 +94,10 @@ const List = () => {
               className="px-1 mr-2 w-40 border-b border-white bg-[#D97706]"
             />
             <div className="ml-2 w-5 h-5 flex justify-center items-center">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="cursor-pointer"
+              />
             </div>
           </div>
         </div>

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { setInterceptor } from "@/assets/setInterceptor";
 
 const Form = () => {
   const [checked, setChecked] = useState(false);
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
-  const send = () => {
+  const send = async () => {
     const data = {
       si_number: id,
       password: pw,
@@ -21,13 +22,17 @@ const Form = () => {
     //   })
     //   .catch((e) => console.log(e));
 
-    axios
+    await axios
       .post("/api/login", data)
       .then((res) => {
         console.log(res);
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${res.data.token}`;
+        if (res.data.code === 200) {
+          localStorage.setItem("token", res.data.result.token);
+          setInterceptor(res.data.result.token);
+          location.href = "/";
+        } else if (res.data.code === 403) {
+          alert(res.data.message);
+        }
       })
       .catch((e) => console.log(e));
   };
@@ -65,7 +70,6 @@ const Form = () => {
             id="login_check"
             className="hidden"
             onClick={() => setChecked(!checked)}
-            // className="border appearance-none checked:bg-[#B1B1B1] checked:border-0 checked:bg-[url('/img/')] w-[20px] h-[20px] m-1 outline-0 rounded-full"
           />
           <label htmlFor="login_check">
             {checked ? (

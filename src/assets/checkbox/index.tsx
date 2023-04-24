@@ -1,5 +1,5 @@
 type Checkbox = {
-  id?: string;
+  id?: number;
   style: string;
   children: React.ReactNode;
   disabled: boolean;
@@ -19,7 +19,7 @@ const Checkbox = ({
     <label className={style + " cursor-pointer"}>
       <input
         type="checkbox"
-        id={id}
+        id={id?.toString()}
         className="hidden"
         disabled={disabled}
         checked={checked}

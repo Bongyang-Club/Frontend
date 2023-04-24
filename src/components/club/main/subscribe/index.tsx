@@ -6,7 +6,7 @@ const Club = () => {
   const [user, setUser] = useState({ role: "ROLE_CLUB_LEADER" });
   const [id, setId] = useState(1);
   const [data, setData] = useState([
-    { id: "asdf", img: "http://placehold.it/200x200" },
+    { id: "2", img: "http://placehold.it/200x200" },
   ]);
 
   return (

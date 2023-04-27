@@ -34,6 +34,44 @@ const List = () => {
     checkAll({ target: { checked: false } });
   }, [data]);
 
+  const deny = () => {
+    const token = localStorage.getItem("token");
+    setInterceptor(token);
+
+    const list = [];
+    for (let i = 0; i < data.length; i++) {
+      if (checked[i] == true) {
+        list.push(i);
+      }
+    }
+
+    console.log(list);
+
+    const body = {
+      schoolClubId: clubid,
+      memberJoinIds: list,
+    };
+
+    axios
+      .put("/api/schoolclub/application/deny", body)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 403) {
+          alert(res.data.message);
+          // location.href = "/";
+        } else {
+          setData(res.data.result);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          location.href = "/login";
+        }
+      });
+  };
+
   const load = () => {
     const token = localStorage.getItem("token");
     setInterceptor(token);
@@ -66,7 +104,7 @@ const List = () => {
     let newCheck = {};
     console.log(data);
     for (let i = 0; i < data.length; i++) {
-      newCheck = { ...newCheck, [i]: newCheckAll };
+      newCheck = { ...newCheck, [data[i].memberJoinId]: newCheckAll };
     }
     setChecked(newCheck);
     setCheckedAll(newCheckAll);
@@ -78,7 +116,7 @@ const List = () => {
 
     const values = [];
     for (let i = 0; i < data.length; i++) {
-      values.push(newChecked[i]);
+      values.push(newChecked[data[i].memberJoinId]);
     }
 
     const filterValues = values.filter((data) => data === true);
@@ -115,7 +153,7 @@ const List = () => {
               icon={faTrashCan}
               className="cursor-pointer"
               onClick={() => {
-                // 체크한 리스트 넘겨주면서 삭제
+                deny();
               }}
             />
           </div>
@@ -150,12 +188,14 @@ const List = () => {
                 style={
                   "w-5 h-5 border border-[#D97706] text-[#D97706] flex justify-center items-center "
                 }
-                id={i}
-                checked={checked[i]}
+                id={v.memberJoinId}
+                checked={checked[v.memberJoinId]}
                 onChange={handleCheck}
                 // eslint-disable-next-line react/no-children-prop
                 children={
-                  checked[i] ? <FontAwesomeIcon icon={faCheck} /> : null
+                  checked[v.memberJoinId] ? (
+                    <FontAwesomeIcon icon={faCheck} />
+                  ) : null
                 }
                 disabled={false}
               />

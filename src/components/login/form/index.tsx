@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { setInterceptor } from "@/assets/setInterceptor";
+import { setToken } from "@/util/useToken";
 
 const Form = () => {
   const [checked, setChecked] = useState(false);
@@ -27,7 +28,7 @@ const Form = () => {
       .then((res) => {
         console.log(res);
         if (res.data.code === 200) {
-          localStorage.setItem("token", res.data.result.token);
+          setToken(res.data.result.token, 60);
           setInterceptor(res.data.result.token);
           location.href = "/";
         } else if (res.data.code === 403) {

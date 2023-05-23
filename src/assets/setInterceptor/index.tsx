@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const setInterceptor = (token: any) => {
   if (!token) return false;
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const tk: any = JSON.parse(token).value;
+  axios.defaults.headers.common["Authorization"] = `Bearer ${tk}`;
   return true;
 };

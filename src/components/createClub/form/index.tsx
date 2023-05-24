@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { getToken } from "@/util/useToken";
+import { setInterceptor } from "@/assets/setInterceptor";
 
 type ReturnType = {
   code: number;
@@ -27,27 +28,32 @@ const Form = () => {
   const [major, setMajor] = useState<number>();
   const [clubName, setClubName] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [number, setNumber] = useState<number>();
   const [teacherName, setTeacherName] = useState<string>("");
   const [introduce, setIntroduce] = useState<string>("");
 
   useEffect(() => {
     setName(data?.result.name || "");
+    setNumber(data?.result.si_number || 0);
   }, [data]);
 
-  function onClickHandler() {
-    // axios
-    //   .post("/api/schoolclub/enroll", {
-    //     body: {
-    //       m_type: major,
-    //       clubName: clubName,
-    //       officer: name,
-    //       teacher: teacherName,
-    //       clubIntroduce: introduce,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //   });
+  async function onClickHandler() {
+    await fetch("/api/schoolclub/enroll", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        m_type: major,
+        clubName: clubName,
+        officer: number,
+        teacher: teacherName,
+        clubIntroduce: introduce,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   if (error) return <h1>error</h1>;

@@ -11,7 +11,34 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const data = [{}];
+const test = [
+  {
+    memberJoinId: 3,
+    name: "일일일",
+    studentId: "3201",
+    applicationAt: "2023-04-24",
+  },
+
+  {
+    memberJoinId: 4,
+    name: "이이이",
+    studentId: "3202",
+    applicationAt: "2023-04-24",
+  },
+
+  {
+    memberJoinId: 5,
+    name: "삼삼삼",
+    studentId: "3203",
+    applicationAt: "2023-04-24",
+  },
+  {
+    memberJoinId: 6,
+    name: "사사사",
+    studentId: "3204",
+    applicationAt: "2023-04-24",
+  },
+];
 
 const List = () => {
   const router = useRouter();
@@ -28,7 +55,7 @@ const List = () => {
 
   useEffect(() => {
     if (!clubid) return;
-    // load();
+    load();
   }, [clubid]);
 
   useEffect(() => {
@@ -97,6 +124,8 @@ const List = () => {
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";
+        } else {
+          setData(test);
         }
       });
   };
@@ -176,9 +205,9 @@ const List = () => {
         </div>
         <div className="flex flex-row h-10 items-center pb-2 text-white bg-[#D97706]">
           <div className="w-20 flex justify-center"></div>
-          <div className="w-40 flex justify-center">신청자명</div>
+          <div className="w-40 flex justify-center">이름</div>
           <div className="w-40 flex justify-center">학번</div>
-          <div className="w-60 flex justify-center ml-auto">신청일</div>
+          <div className="w-60 flex justify-center ml-auto">가입일</div>
         </div>
         {data.map((v: any, i: any) => (
           <div

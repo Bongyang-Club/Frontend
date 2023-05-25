@@ -11,6 +11,35 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+const test = [
+  {
+    memberJoinId: 3,
+    name: "일일일",
+    studentId: "3201",
+    applicationAt: "2023-04-24",
+  },
+
+  {
+    memberJoinId: 4,
+    name: "이이이",
+    studentId: "3202",
+    applicationAt: "2023-04-24",
+  },
+
+  {
+    memberJoinId: 5,
+    name: "삼삼삼",
+    studentId: "3203",
+    applicationAt: "2023-04-24",
+  },
+  {
+    memberJoinId: 6,
+    name: "사사사",
+    studentId: "3204",
+    applicationAt: "2023-04-24",
+  },
+];
+
 const List = () => {
   const router = useRouter();
   const [clubid, setClubid] = useState<any>();
@@ -95,6 +124,8 @@ const List = () => {
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";
+        } else {
+          setData(test);
         }
       });
   };
@@ -145,6 +176,15 @@ const List = () => {
               className="cursor-pointer"
               onClick={() => {
                 window.location.reload();
+              }}
+            />
+          </div>
+          <div className="w-10 flex justify-center">
+            <FontAwesomeIcon
+              icon={faCheck}
+              className="cursor-pointer"
+              onClick={() => {
+                deny();
               }}
             />
           </div>

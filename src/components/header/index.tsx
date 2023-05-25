@@ -10,7 +10,7 @@ const Header = () => {
         <div className="w-[128px] h-[48px]">
           <Link href="/">
             <Image
-              src="./봉양클럽.png"
+              src="/봉양클럽.png"
               width={128}
               height={48}
               alt={"봉양클럽"}

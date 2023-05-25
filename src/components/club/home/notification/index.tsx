@@ -39,9 +39,9 @@ const Notification = ({ user }: Notification) => {
           >
             <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
             {check ? (
-              <div className="absolute top-16 z-10 mt-5 flex w-[8rem] -translate-x-10">
+              <div className="absolute z-10 mt-5 flex w-[8rem] -translate-x-12 translate-y-10">
                 <div className="flex-auto rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
-                  <div className="group relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
+                  <div className="relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
                     <div>
                       <a
                         href="#"

@@ -16,7 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Bongyang-Club</title>
       </Head>
-      {router.pathname == "/login" ? <></> : <Header />}
+      {/* {router.pathname == "/login" ? <></> : <Header />} */}
+      <Header />
       <Component {...pageProps} />
     </div>
   );

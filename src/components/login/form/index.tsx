@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { setInterceptor } from "@/assets/setInterceptor";
 import { setToken } from "@/util/useToken";
 
 const Form = () => {
@@ -29,7 +28,6 @@ const Form = () => {
         console.log(res);
         if (res.data.code === 200) {
           setToken(res.data.result.token, 60);
-          setInterceptor(res.data.result.token);
           location.href = "/";
         } else if (res.data.code === 403) {
           alert(res.data.message);

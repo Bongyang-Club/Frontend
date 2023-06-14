@@ -17,12 +17,12 @@ const Menu = () => {
       >
         탈퇴하기
       </Link>
-      <Link
+      {/* <Link
         href="/"
         className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
       >
         공지보기
-      </Link>
+      </Link> */}
       <div className="mt-8 text-[#B1B1B1] w-[11rem]">
         동아리장 : {club.leader}
       </div>

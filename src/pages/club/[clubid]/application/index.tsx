@@ -155,8 +155,8 @@ const List = () => {
   };
 
   return data ? (
-    <div className="w-full h-full flex justify-center">
-      <div className="max-w-4xl w-full h-full my-10 rounded-md bg-white">
+    <div className="w-full h-full flex justify-center xs:p-3">
+      <div className="max-w-4xl w-full h-full my-10 xs:my-5 rounded-md bg-white">
         <div className="flex flex-row h-10 px-5 pt-2 items-center rounded-t-md text-white bg-[#D97706]">
           <div className="w-10 flex justify-center">
             <Checkbox

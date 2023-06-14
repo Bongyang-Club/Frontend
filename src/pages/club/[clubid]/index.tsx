@@ -7,6 +7,7 @@ const ClubHome = () => {
   const router = useRouter();
   const clubid = router.query;
   const [user, setUser] = useState({ role: "ROLE_CLUB_LEADER" });
+  // const [user, setUser] = useState({ role: "ROLE_STUDENT" });
 
   return (
     <>
@@ -14,7 +15,7 @@ const ClubHome = () => {
         className="flex flex-row justify-center"
         style={{ minHeight: "calc(100vh - 65px)" }}
       >
-        <div className="flex flex-col max-w-4xl w-full">
+        <div className="flex flex-col max-w-4xl w-full xs:p-3">
           <Introduce user={user} router={clubid} />
           <Notification user={user} />
         </div>

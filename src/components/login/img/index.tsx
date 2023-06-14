@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Img = () => {
   return (
-    <div className="relative w-[450px] h-full overflow-hidden">
+    <div className="relative w-[450px] h-full overflow-hidden xs:hidden block">
       <Image
         className="absolute z-10 top-2 left-2"
         src="./gbsw-logo.png"

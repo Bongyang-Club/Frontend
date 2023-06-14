@@ -21,18 +21,20 @@ const Notification = ({ user }: Notification) => {
     },
   });
   return (
-    <div className="flex flex-col bg-[#Ffffff] max-w-4xl w-full px-10 pt-7 pb-10 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10">
+    <div className="flex flex-col bg-[#Ffffff] max-w-4xl w-full px-10 pt-7 pb-10 xs:p-5 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10">
       <div className="flex flex-row justify-between items-center mb-3">
         <div className="flex flex-col justify-start">
-          <div className="mb-1 font-medium text-lg">동아리장 {club.leader}</div>
-          <div className="text-[#969696] font-light text-sm">
+          <div className="mb-1 font-medium text-lg xs:text-base">
+            동아리장 {club.leader}
+          </div>
+          <div className="text-[#969696] font-light text-sm xs:text-xs">
             {club.notice.createdAt}
           </div>
         </div>
         {user.role === "ROLE_CLUB_LEADER" ? (
           <div
             className={
-              "rounded-full w-10 h-10 flex justify-center items-center " +
+              "rounded-full w-10 xs:w-8 h-10 xs:h-8 flex justify-center items-center " +
               (check ? "bg-[#eeeeee]" : "")
             }
             onClick={() => setCheck(!check)}
@@ -47,7 +49,7 @@ const Notification = ({ user }: Notification) => {
                         href="#"
                         className="select-none font-regular text-gray-900"
                       >
-                        수정하기
+                        삭제하기
                       </a>
                     </div>
                   </div>
@@ -57,7 +59,7 @@ const Notification = ({ user }: Notification) => {
           </div>
         ) : null}
       </div>
-      <div className="justify-items-center mt-3 whitespace-pre-wrap">
+      <div className="justify-items-center mt-3 whitespace-pre-wrap xs:text-sm">
         {club.notice.content}
       </div>
     </div>

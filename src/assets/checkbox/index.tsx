@@ -30,4 +30,9 @@ const Checkbox = ({
   );
 };
 
+Checkbox.defaultProps = {
+  style:
+    "w-5 h-5 border border-[#D97706] text-[#D97706] flex justify-center items-center ",
+};
+
 export default Checkbox;

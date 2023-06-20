@@ -13,12 +13,12 @@ const Write = ({ setModal }: propsType) => {
   return (
     <div
       className="w-full h-full top-0 left-0 fixed flex justify-center items-center z-50 bg-black bg-opacity-30"
-      onClick={onClickHandler}
+      // onClick={() => onClickHandler()}
     >
       <div className="w-[38rem] xs:w-[20rem] h-[36rem] xs:h-[20rem] bg-white fixed xs:static flex flex-col justify-between bottom-10 right-10 z-50 shadow-2xl rounded-2xl">
         <div className="w-full h-12 bg-[#F5F5F5] border-b rounded-t-2xl flex items-center justify-between p-3">
           <span>새 공지</span>
-          <button className="border-none" onClick={onClickHandler}>
+          <button className="border-none" onClick={() => onClickHandler()}>
             <FontAwesomeIcon icon={faXmark} width={20} height={20} />
           </button>
         </div>

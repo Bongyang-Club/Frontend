@@ -12,13 +12,13 @@ const LeaderChange = ({ setModal }: propsType) => {
 
   return (
     <div
-      className="w-full h-full top-0 left-0 fixed flex justify-center items-center z-50 bg-black bg-opacity-30"
-      onClick={onClickHandler}
+      className="w-full h-full top-0 left-0 fixed flex justify-center items-center z-40 bg-black bg-opacity-30"
+      // onClick={() => onClickHandler()}
     >
-      <div className="w-[20rem] bg-white flex flex-col justify-between shadow-2xl rounded-2xl">
+      <div className="w-[20rem] bg-white flex flex-col justify-between shadow-2xl rounded-2xl z-50">
         <div className="w-full h-12 bg-[#F5F5F5] border-b rounded-t-2xl flex items-center justify-between p-3">
           <span>동아리장 변경</span>
-          <button className="border-none" onClick={onClickHandler}>
+          <button className="border-none" onClick={() => onClickHandler()}>
             <FontAwesomeIcon icon={faXmark} width={20} height={20} />
           </button>
         </div>

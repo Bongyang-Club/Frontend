@@ -171,31 +171,47 @@ const Form = () => {
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767]">
               활동 방법
             </span>
-            <textarea className="w-[28.5rem] h-[15rem] border border-[#DDDDDD] p-2 resize-none" />
+            <div className="w-[28.5rem] h-[15rem] border border-[#DDDDDD] p-2 overflow-scroll scroll">
+              대충 이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충
+              이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충 이글은
+              동아리 안내이다 대충 이글은 동아리 안내이다 대충 이글은 동아리
+              안내이다 대충 이글은 동아리 안내이다 대충 이글은 동아리 안내이다
+              대충 이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충
+              이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충 이글은
+              동아리 안내이다 대충 이글은 동아리 안내이다대충 이글은 동아리
+              안내이다 대충 이글은 동아리 안내이다 대충 이글은 동아리 안내이다
+              대충 이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충
+              이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충 이글은
+              동아리 안내이다 대충 이글은 동아리 안내이다 대충 이글은 동아리
+              안내이다 대충 이글은 동아리 안내이다 대충 이글은 동아리 안내이다
+            </div>
           </div>
           {/* 활동 장소 */}
           <div className="w-full flex items-center justify-between mt-[2rem]">
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               활동 장소
             </span>
-            <input className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
+            <div className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1">
+              2층 교무실
+            </div>
           </div>
           {/* 활동 시간 */}
           <div className="w-full flex items-center justify-between mt-[2rem]">
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               활동 시간
             </span>
-            <input className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
+            <div className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1">
+              오전 7시 ~ 오후 3시
+            </div>
           </div>
           {/* 가입문의 */}
           <div className="w-full flex items-center justify-between mt-[2rem]">
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               가입문의
             </span>
-            <input
-              className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1 font-normal"
-              placeholder="ex. 인스타 : wlqdp_rkffo"
-            />
+            <div className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1 font-normal">
+              ex. 인스타 : wlqdp_rkffo
+            </div>
           </div>
         </div>
       </div>

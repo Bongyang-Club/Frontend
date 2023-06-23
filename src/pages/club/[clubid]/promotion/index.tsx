@@ -171,7 +171,7 @@ const Form = () => {
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767]">
               활동 방법
             </span>
-            <div className="w-[28.5rem] h-[15rem] border border-[#DDDDDD] p-2 overflow-scroll scroll">
+            <div className="w-[28.5rem] p-2">
               대충 이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충
               이글은 동아리 안내이다 대충 이글은 동아리 안내이다 대충 이글은
               동아리 안내이다 대충 이글은 동아리 안내이다 대충 이글은 동아리
@@ -191,7 +191,7 @@ const Form = () => {
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               활동 장소
             </span>
-            <div className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1">
+            <div className="w-[28.5rem] text-lg xs:text-base px-2 py-1">
               2층 교무실
             </div>
           </div>
@@ -200,7 +200,7 @@ const Form = () => {
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               활동 시간
             </span>
-            <div className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1">
+            <div className="w-[28.5rem] text-lg xs:text-base px-2 py-1">
               오전 7시 ~ 오후 3시
             </div>
           </div>
@@ -209,7 +209,7 @@ const Form = () => {
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               가입문의
             </span>
-            <div className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1 font-normal">
+            <div className="w-[28.5rem] text-lg xs:text-base px-2 py-1 font-normal">
               ex. 인스타 : wlqdp_rkffo
             </div>
           </div>

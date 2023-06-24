@@ -3,11 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 type Img = {
-  user: User;
-};
-
-type User = {
-  role: string;
+  user: boolean;
 };
 
 const Img = ({ user }: Img) => {
@@ -35,7 +31,7 @@ const Img = ({ user }: Img) => {
 
   return (
     <div className="cursor-pointer max-w-[30rem] w-full h-full overflow-hidden flex justify-center items-center xs:hidden">
-      {user.role === "ROLE_CLUB_LEADER" ? (
+      {user ? (
         <>
           <div className="relative w-[500px] h-[500px] overflow-hidden flex justify-center items-center">
             <img

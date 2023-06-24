@@ -1,68 +1,141 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { setInterceptor } from "@/assets/setInterceptor";
+import axios from "axios";
+import { ParsedUrlQuery } from "querystring";
+import { useRouter } from "next/router";
 
 type Notification = {
-  user: User;
+  user: boolean;
 };
 
-type User = {
-  role: string;
-};
+const test = [
+  {
+    user: "김무일",
+    createdAt: "21시간 전",
+    content:
+      "가입이 완료되면\n카카오톡 : (카카오톡 링크)\n디스코드 : (디스코드 링크)\n로 들어와 주세요 :)",
+  },
+];
 
 const Notification = ({ user }: Notification) => {
+  const router = useRouter();
+  const clubid = router.query.clubid;
   const [check, setCheck] = useState(false);
-  const [club, setClub] = useState({
-    leader: "김무일",
-    notice: {
-      createdAt: "21시간 전",
-      content:
-        "가입이 완료되면\n카카오톡 : (카카오톡 링크)\n디스코드 : (디스코드 링크)\n로 들어와 주세요 :)",
-    },
-  });
-  return (
-    <div className="flex flex-col bg-[#Ffffff] max-w-4xl w-full px-10 pt-7 pb-10 xs:p-5 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10">
-      <div className="flex flex-row justify-between items-center mb-3">
-        <div className="flex flex-col justify-start">
-          <div className="mb-1 font-medium text-lg xs:text-base">
-            동아리장 {club.leader}
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    if (!router.query || Object.keys(router.query).length === 0) return;
+    load();
+  }, [router.query]);
+
+  const load = () => {
+    const token = localStorage.getItem("token");
+    setInterceptor(token);
+    axios
+      .get(`/api/schoolclub/notices/${clubid}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 403) {
+          alert(res.data.message);
+          // location.href = "/";
+        } else {
+          setData(res.data.result);
+          console.log(res.data.result);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          // location.href = "/login";
+        } else {
+          setData(test);
+        }
+      });
+  };
+
+  const deny = (noticeId: number) => {
+    const token = localStorage.getItem("token");
+    setInterceptor(token);
+
+    console.log(clubid);
+    console.log(typeof clubid);
+
+    const body = {
+      clubId: Number(clubid),
+      noticeId: noticeId,
+    };
+
+    axios
+      .put("/api/schoolclub/notice", body)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 403) {
+          alert(res.data.message);
+          location.href = "/";
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          location.href = "/login";
+        }
+      });
+  };
+
+  return data ? (
+    data.map((v: any, i: any) => (
+      <div
+        key={i}
+        className="flex flex-col bg-[#Ffffff] max-w-4xl w-full px-10 pt-7 pb-10 xs:p-5 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10"
+      >
+        <div className="flex flex-row justify-between items-center mb-3">
+          <div className="flex flex-col justify-start">
+            <div className="mb-1 font-medium text-lg xs:text-base">
+              작성자 {v.writer}
+            </div>
+            <div className="text-[#969696] font-light text-sm xs:text-xs">
+              {v.createdAt}
+            </div>
           </div>
-          <div className="text-[#969696] font-light text-sm xs:text-xs">
-            {club.notice.createdAt}
-          </div>
-        </div>
-        {user.role === "ROLE_CLUB_LEADER" ? (
-          <div
-            className={
-              "rounded-full w-10 xs:w-8 h-10 xs:h-8 flex justify-center items-center " +
-              (check ? "bg-[#eeeeee]" : "")
-            }
-            onClick={() => setCheck(!check)}
-          >
-            <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
-            {check ? (
-              <div className="absolute z-10 mt-5 flex w-[8rem] -translate-x-12 translate-y-10">
-                <div className="flex-auto rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
-                  <div className="relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
-                    <div>
-                      <a
-                        href="#"
-                        className="select-none font-regular text-gray-900"
+          {user ? (
+            <div
+              className={
+                "rounded-full w-10 xs:w-8 h-10 xs:h-8 flex justify-center items-center " +
+                (check ? "bg-[#eeeeee]" : "")
+              }
+              onClick={() => setCheck(!check)}
+            >
+              <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
+              {check ? (
+                <div className="absolute z-10 mt-5 flex w-[8rem] -translate-x-12 translate-y-10">
+                  <div className="flex-auto rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
+                    <div className="relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
+                      <button
+                        className="select-none font-regular text-gray-900 w-max h-max"
+                        onClick={() => deny(v.id)}
                       >
                         삭제하기
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+        <div className="justify-items-center mt-3 whitespace-pre-wrap xs:text-sm">
+          {v.content}
+        </div>
       </div>
-      <div className="justify-items-center mt-3 whitespace-pre-wrap xs:text-sm">
-        {club.notice.content}
-      </div>
-    </div>
+    ))
+  ) : (
+    <></>
   );
 };
 

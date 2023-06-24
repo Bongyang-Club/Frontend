@@ -7,15 +7,15 @@ type Content = {
 };
 
 type Data = {
-  id: string;
-  img: string;
+  clubId: string;
+  image: string;
 };
 
 const Content = ({ data }: Content) => {
-  if (data.img !== "") {
+  if (data.image !== "") {
     return (
-      <div className="w-[200px] h-[200px] cursor-pointer">
-        <img src={data.img} />
+      <div className="w-[200px] h-[200px] cursor-pointer shadow-md">
+        <img src={data.image} />
       </div>
     );
   } else {

@@ -159,11 +159,6 @@ const Form = () => {
                   {"10"}명
                 </div>
               </div>
-              {/* <div className="flex max-w-[28.5rem] w-full items-center mt-2">
-                <input className="max-w-[21rem] w-full border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
-                <input className="max-w-[5rem] xs:max-w-[3rem] w-full ml-2 border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
-                <span className="ml-2 text-lg xs:text-base">명</span>
-              </div> */}
             </div>
           </div>
           {/* 활동 방법 */}

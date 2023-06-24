@@ -1,8 +1,66 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Form = () => {
-  const [firstChecked, setFirstChecked] = useState(false);
-  const [secondChecked, setSecondChecked] = useState(false);
+  const [secondChecked, setSecondChecked] = useState<boolean>(false);
+
+  const [targetKey1, setTargetKey1] = useState<string>("");
+  const [targetValue1, setTargetValue1] = useState<number>(0);
+  const [targetKey2, setTargetKey2] = useState<string>("");
+  const [targetValue2, setTargetValue2] = useState<number>(0);
+  const [targetKey3, setTargetKey3] = useState<string>("");
+  const [targetValue3, setTargetValue3] = useState<number>(0);
+
+  const [inquiryKey, setInquiryKey] = useState<string>("");
+  const [inquiryValue, setInquiryValue] = useState<string>("");
+
+  const [data, setData] = useState({
+    schoolClubName: "",
+    googleForm: false,
+    interview: false,
+    test: false,
+    gf_link: "",
+    startDate: "",
+    endDate: "",
+    check: true,
+    checkTime: "",
+    checkPlace: "",
+    target: {},
+    a_method: "",
+    a_place: "",
+    a_time: "",
+    a_inquiry: {},
+  });
+
+  function updateData(key: string, value: string | boolean) {
+    setData({ ...data, [key]: value });
+  }
+
+  function updateTarget(key: string, value: number) {
+    setData({ ...data, target: { ...data.target, [key]: value } });
+  }
+
+  function updateInquiry(key: string, value: string) {
+    setData({ ...data, a_inquiry: { ...data.a_inquiry, [key]: value } });
+  }
+
+  function handleSelectChange(event: any) {
+    const { value } = event.target;
+
+    if (value === "테스트") {
+      updateData("test", true);
+      updateData("interview", false);
+    } else if (value === "면접") {
+      updateData("test", false);
+      updateData("interview", true);
+    }
+  }
+
+  useEffect(() => {
+    if (secondChecked == false) {
+      updateData("test", false);
+      updateData("interview", false);
+    }
+  }, [secondChecked]);
 
   return (
     <div className="w-full h-full flex justify-center items-center xs:p-3">
@@ -39,9 +97,9 @@ const Form = () => {
                   <input
                     type="checkBox"
                     className="w-[1.2rem] h-[1.2rem]"
-                    checked={firstChecked}
+                    checked={data.googleForm}
                     onChange={({ target: { checked } }) =>
-                      setFirstChecked(checked)
+                      updateData("googleForm", checked)
                     }
                   />
                   <span className="ml-[0.7rem] leading-10 text-md text-[#B1B1B1] xs:text-base">
@@ -70,9 +128,10 @@ const Form = () => {
                           ? ""
                           : "bg-[#F8F8F8] border border-1 rounded-sm"
                       }
+                      onChange={handleSelectChange}
                     >
-                      <option>테스트</option>
-                      <option>면접</option>
+                      <option value="테스트">테스트</option>
+                      <option value="면접">면접</option>
                     </select>
                   </div>
                 </div>
@@ -85,25 +144,43 @@ const Form = () => {
           {/* 정보 */}
           <div className="w-full flex justify-end items-center ">
             <div className="max-w-[35rem] w-full">
-              {firstChecked ? (
+              {data.googleForm ? (
                 <div className="mt-[1rem]">
                   {/* 링크 */}
                   <div className="w-full flex justify-between items-center">
                     <span className="max-w-[7rem] w-full xs:pl-5 text-lg xs:text-base text-[#676767] leading-10">
                       링크
                     </span>
-                    <input className="w-[28.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]" />
+                    <input
+                      className="w-[28.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
+                      value={data.gf_link}
+                      onChange={(e) => updateData("gf_link", e.target.value)}
+                    />
                   </div>
                   {/* 신청기간 */}
                   <div className="w-full flex justify-between items-center mt-2">
                     <span className="max-w-[7rem] w-full xs:pl-5 text-lg xs:text-base text-[#676767] leading-10">
                       신청기간
                     </span>
-                    <input className="w-[28.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]" />
+                    <div className="w-[28.5rem] flex justify-between">
+                      <input
+                        className="w-[12.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
+                        value={data.gf_link}
+                        onChange={(e) => updateData("gf_link", e.target.value)}
+                        placeholder="ex) 2023-06-22"
+                      />
+                      <span className="text-3xl">~</span>
+                      <input
+                        className="w-[12.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
+                        value={data.gf_link}
+                        onChange={(e) => updateData("gf_link", e.target.value)}
+                        placeholder="ex) 2023-06-25"
+                      />
+                    </div>
                   </div>
                 </div>
               ) : null}
-              {secondChecked ? (
+              {data.interview ? (
                 <div className="w-full">
                   <div className="w-full flex justify-between items-center mt-2">
                     <span className="max-w-[7rem] w-full xs:pl-5 text-lg xs:text-base text-[#676767] leading-10">
@@ -147,18 +224,63 @@ const Form = () => {
             </span>
             <div className="flex flex-col">
               <div className="flex max-w-[28.5rem] w-full items-center">
-                <input className="max-w-[21rem] w-full border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
-                <input className="max-w-[5rem] xs:max-w-[3rem] w-full ml-2 border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
+                <input
+                  className="max-w-[21rem] w-full border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+                  value={targetKey1}
+                  onChange={(e) => {
+                    setTargetKey1(e.target.value);
+                    updateTarget(targetKey1, targetValue1);
+                  }}
+                />
+                <input
+                  className="max-w-[5rem] xs:max-w-[3rem] w-full ml-2 border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+                  type="number"
+                  value={targetValue1}
+                  onChange={(e) => {
+                    setTargetValue1(parseInt(e.target.value, 10));
+                    updateTarget(targetKey1, targetValue1);
+                  }}
+                />
                 <span className="ml-2 text-lg xs:text-base">명</span>
               </div>
               <div className="flex max-w-[28.5rem] w-full items-center mt-2">
-                <input className="max-w-[21rem] w-full border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
-                <input className="max-w-[5rem] xs:max-w-[3rem] w-full ml-2 border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
+                <input
+                  className="max-w-[21rem] w-full border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+                  value={targetKey2}
+                  onChange={(e) => {
+                    setTargetKey2(e.target.value);
+                    updateTarget(targetKey2, targetValue2);
+                  }}
+                />
+                <input
+                  className="max-w-[5rem] xs:max-w-[3rem] w-full ml-2 border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+                  type="number"
+                  value={targetValue2}
+                  onChange={(e) => {
+                    setTargetValue2(parseInt(e.target.value, 10));
+                    updateTarget(targetKey2, targetValue2);
+                  }}
+                />
                 <span className="ml-2 text-lg xs:text-base">명</span>
               </div>
               <div className="flex max-w-[28.5rem] w-full items-center mt-2">
-                <input className="max-w-[21rem] w-full border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
-                <input className="max-w-[5rem] xs:max-w-[3rem] w-full ml-2 border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
+                <input
+                  className="max-w-[21rem] w-full border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+                  value={targetKey3}
+                  onChange={(e) => {
+                    setTargetKey3(e.target.value);
+                    updateTarget(targetKey3, targetValue3);
+                  }}
+                />
+                <input
+                  className="max-w-[5rem] xs:max-w-[3rem] w-full ml-2 border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+                  type="number"
+                  value={targetValue3}
+                  onChange={(e) => {
+                    setTargetValue3(parseInt(e.target.value, 10));
+                    updateTarget(targetKey3, targetValue3);
+                  }}
+                />
                 <span className="ml-2 text-lg xs:text-base">명</span>
               </div>
             </div>
@@ -168,31 +290,59 @@ const Form = () => {
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767]">
               활동 방법
             </span>
-            <textarea className="w-[28.5rem] h-[15rem] border border-[#DDDDDD] p-2 resize-none" />
+            <textarea
+              className="w-[28.5rem] h-[15rem] border border-[#DDDDDD] p-2 resize-none"
+              value={data.a_method}
+              onChange={(e) => updateData("a_method", e.target.value)}
+            />
           </div>
           {/* 활동 장소 */}
           <div className="w-full flex items-center justify-between mt-[2rem]">
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               활동 장소
             </span>
-            <input className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
+            <input
+              className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+              value={data.a_place}
+              onChange={(e) => updateData("a_place", e.target.value)}
+            />
           </div>
           {/* 활동 시간 */}
           <div className="w-full flex items-center justify-between mt-[2rem]">
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               활동 시간
             </span>
-            <input className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1" />
+            <input
+              className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1"
+              value={data.a_time}
+              onChange={(e) => updateData("a_time", e.target.value)}
+            />
           </div>
           {/* 가입문의 */}
           <div className="w-full flex items-center justify-between mt-[2rem]">
             <span className="max-w-[5rem] w-full text-lg xs:text-base text-[#676767] leading-10">
               가입문의
             </span>
-            <input
-              className="w-[28.5rem] border border-[#DDDDDD] text-lg xs:text-base px-2 py-1 font-normal"
-              placeholder="ex. 인스타 : wlqdp_rkffo"
-            />
+            <div className="w-[28.5rem] flex justify-between">
+              <input
+                className="w-[13.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
+                value={inquiryKey}
+                onChange={(e) => {
+                  setInquiryKey(e.target.value);
+                  updateInquiry(inquiryKey, inquiryValue);
+                }}
+                placeholder="ex. 인스타"
+              />
+              <input
+                className="w-[13.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
+                value={inquiryValue}
+                onChange={(e) => {
+                  setInquiryValue(e.target.value);
+                  updateInquiry(inquiryKey, inquiryValue);
+                }}
+                placeholder="ex. wlqdp_rkffo"
+              />
+            </div>
           </div>
         </div>
       </div>

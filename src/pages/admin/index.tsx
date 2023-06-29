@@ -35,8 +35,8 @@ const test = [
 ];
 
 const ClubList = () => {
+  const [checked, setChecked] = useState<any>([]);
   const [data, setData] = useState<any>();
-  const list = useRef<any>();
 
   useEffect(() => {
     load();
@@ -47,7 +47,7 @@ const ClubList = () => {
     setInterceptor(token);
 
     axios
-      .get("/api/schoolclub/members")
+      .get("/api/admin/clubs")
       .then((res) => {
         console.log(res);
         if (res.data.code === 403) {
@@ -71,7 +71,8 @@ const ClubList = () => {
   return data ? (
     <List
       data={data}
-      ref={list}
+      checked={checked}
+      setChecked={setChecked}
       th={["동아리명", "동아리장", "전공/자율"]}
       td={["memberJoinId", "name", "studentId", "joinAt"]}
     >
@@ -84,7 +85,7 @@ const ClubList = () => {
           }}
         />
       </div>
-      <div className="w-10 flex justify-center">
+      {/* <div className="w-10 flex justify-center">
         <FontAwesomeIcon
           icon={faCheck}
           className="cursor-pointer"
@@ -92,7 +93,7 @@ const ClubList = () => {
             // deny();
           }}
         />
-      </div>
+      </div> */}
     </List>
   ) : (
     <div>data is undefined</div>

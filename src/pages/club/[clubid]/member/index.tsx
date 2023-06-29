@@ -36,10 +36,10 @@ const test = [
 ];
 
 const MemberList = () => {
+  const [checked, setChecked] = useState<any>([]);
   const router = useRouter();
   const [clubid, setClubid] = useState<any>();
   const [data, setData] = useState<any>();
-  const list = useRef<any>();
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -83,7 +83,8 @@ const MemberList = () => {
   return data ? (
     <List
       data={data}
-      ref={list}
+      checked={checked}
+      setChecked={setChecked}
       th={["이름", "학번", "가입일"]}
       td={["memberJoinId", "name", "studentId", "joinAt"]}
     >

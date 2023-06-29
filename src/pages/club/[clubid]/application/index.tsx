@@ -40,10 +40,22 @@ const test = [
 ];
 
 const Application = () => {
+  const [checked, setChecked] = useState<any>([]);
   const router = useRouter();
   const [clubid, setClubid] = useState<any>();
   const [data, setData] = useState<any>();
-  const list = useRef<any>();
+
+  const checkedList = () => {
+    const list = [];
+    console.log(checked);
+    for (let i = 0; i < data.length; i++) {
+      if (checked[data[i]["memberJoinId"]] == true) {
+        list.push(data[i]["memberJoinId"]);
+      }
+    }
+
+    return list;
+  };
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -89,9 +101,11 @@ const Application = () => {
     setInterceptor(token);
 
     const body = {
-      schoolClubId: clubid,
-      memberJoinIds: list.current.checkedList,
+      schoolClubId: Number(clubid),
+      memberJoinIds: checkedList(),
     };
+
+    console.log(body);
 
     axios
       .put("/api/schoolclub/application/deny", body)
@@ -101,14 +115,45 @@ const Application = () => {
           alert(res.data.message);
           // location.href = "/";
         } else {
-          setData(res.data.result);
+          window.location.reload();
         }
       })
       .catch((e) => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          location.href = "/login";
+          // location.href = "/login";
+        }
+      });
+  };
+
+  const approve = () => {
+    const token = localStorage.getItem("token");
+    setInterceptor(token);
+
+    const body = {
+      schoolClubId: Number(clubid),
+      memberJoinIds: checkedList(),
+    };
+
+    console.log(body);
+
+    axios
+      .put("/api/schoolclub/application/approve", body)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 403) {
+          alert(res.data.message);
+          // location.href = "/";
+        } else {
+          //.location.reload();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          // location.href = "/login";
         }
       });
   };
@@ -116,7 +161,8 @@ const Application = () => {
   return data ? (
     <List
       data={data}
-      ref={list}
+      checked={checked}
+      setChecked={setChecked}
       th={["신청자명", "학번", "신청일"]}
       td={["memberJoinId", "name", "studentId", "applicationAt"]}
     >
@@ -134,7 +180,7 @@ const Application = () => {
           icon={faCheck}
           className="cursor-pointer"
           onClick={() => {
-            // deny();
+            approve();
           }}
         />
       </div>

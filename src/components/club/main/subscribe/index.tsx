@@ -4,14 +4,16 @@ import Link from "next/link";
 import axios from "axios";
 import { setInterceptor } from "@/assets/setInterceptor";
 
-const test = [{ id: "1", img: "http://placehold.it/200x200" }];
+const test = [{ clubId: "1", image: "http://placehold.it/200x200" }];
 
 const Club = () => {
-  const [user, setUser] = useState({ role: "ROLE_CLUB_LEADER" });
+  const [user, setUser] = useState("");
   const [id, setId] = useState(1);
   const [data, setData] = useState<any>();
+  const [check, setChekc] = useState(false);
 
   useEffect(() => {
+    if (check) return;
     load();
   }, []);
 
@@ -23,23 +25,25 @@ const Club = () => {
       .get("/api/schoolclub/my/club")
       .then((res) => {
         console.log(res);
-        if (res.data.code === 403) {
-          // alert(res.data.message);
-          // location.href = "/";
-        } else {
-          // setData(res.data.result);
-          setData(test);
-        }
+        setData(res.data.result);
       })
       .catch((e) => {
         console.log(e);
-        if (e.response.status === 401) {
-          alert(e.response.data);
-          location.href = "/login";
-        } else {
-          setData(test);
-        }
+        // setData(test);
       });
+
+    axios
+      .get("/api/member")
+      .then((res) => {
+        console.log(res);
+        setUser(res.data.result.role);
+      })
+      .catch((e) => {
+        console.log(e);
+        // setUser(test);
+      });
+
+    setChekc(true);
   };
 
   return (
@@ -48,7 +52,7 @@ const Club = () => {
         <div className="mx-6 xs:mx-0 mb-3 xs:mb-0 font-medium text-lg">
           내동아리
         </div>
-        {user.role === "ROLE_CLUB_LEADER" ? (
+        {user === "ROLE_CLUB_LEADER" ? (
           <Link
             href={"/club/promotion"}
             className="w-[6rem] flex justify-center mx-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5"
@@ -61,7 +65,7 @@ const Club = () => {
         {data
           ? data.map((v: any, i: any) => (
               <div key={i}>
-                <Link href={`/club/${v.id}`}>
+                <Link href={`/club/${v.clubId}`}>
                   <Content data={v} />
                 </Link>
               </div>
@@ -70,8 +74,8 @@ const Club = () => {
         <Link href={`/createClub`}>
           <Content
             data={{
-              id: "",
-              img: "",
+              clubId: "",
+              image: "",
             }}
           />
         </Link>

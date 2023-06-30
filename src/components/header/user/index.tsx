@@ -49,21 +49,15 @@ const User = () => {
         <div className="absolute top-16 z-10 mt-5 flex w-[10rem] -translate-x-5 xs:top-9">
           <div className="flex-auto rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
             <div className="group relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
-              <div>
-                <a href="#" className="font-regular text-gray-900">
-                  비밀번호변경
-                </a>
-              </div>
+              <a href="#" className="font-regular text-gray-900 w-max h-max">
+                비밀번호변경
+              </a>
             </div>
-            <div className="group relative text-center py-3 px-4 hover:bg-gray-50  rounded-b-lg">
-              <div>
-                <div
-                  className="font-regular text-gray-900"
-                  onClick={() => logout()}
-                >
-                  로그아웃
-                </div>
-              </div>
+            <div
+              className="group relative text-center py-3 px-4 hover:bg-gray-50  rounded-b-lg"
+              onClick={() => logout()}
+            >
+              <div className="font-regular text-gray-900">로그아웃</div>
             </div>
           </div>
         </div>

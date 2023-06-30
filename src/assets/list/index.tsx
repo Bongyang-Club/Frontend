@@ -1,37 +1,20 @@
 import Checkbox from "@/assets/checkbox";
 import { faCheck, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useImperativeHandle, useState } from "react";
+import { useEffect, useState } from "react";
 
 type ListProps = {
   data: any;
-  ref: any;
   children?: React.ReactNode;
   th: any;
   td: any;
+  checked: any;
+  setChecked: any;
 };
 
-const List = ({ data, ref, children, th, td }: ListProps) => {
-  const [checked, setChecked] = useState<any>([]);
+const List = ({ data, children, th, td, checked, setChecked }: ListProps) => {
   const [checkedAll, setCheckedAll] = useState(false);
   const [search, setSearch] = useState("");
-
-  useImperativeHandle(ref, () => ({
-    checkedList,
-  }));
-
-  const checkedList = () => {
-    const list = [];
-    for (let i = 0; i < data.length; i++) {
-      if (checked[i] == true) {
-        list.push(i);
-      }
-    }
-
-    console.log(list);
-
-    return list;
-  };
 
   useEffect(() => {
     if (!data) return;

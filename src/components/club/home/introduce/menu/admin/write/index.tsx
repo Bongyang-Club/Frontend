@@ -1,14 +1,46 @@
+import { setInterceptor } from "@/assets/setInterceptor";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { ParsedUrlQuery } from "querystring";
+import { useState } from "react";
 
 interface propsType {
   setModal: React.Dispatch<boolean>;
+  router: ParsedUrlQuery;
 }
 
-const Write = ({ setModal }: propsType) => {
+const Write = ({ setModal, router }: propsType) => {
+  const [text, setText] = useState("");
   function onClickHandler() {
     setModal(false);
   }
+  const onClick = () => {
+    const token = localStorage.getItem("token");
+    setInterceptor(token);
+
+    const body = {
+      clubId: router.clubid,
+      notice: text,
+    };
+
+    axios
+      .post("/api/schoolclub/notice", body)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 403) {
+          alert(res.data.message);
+          // location.href = "/";
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          // location.href = "/login";
+        }
+      });
+  };
 
   return (
     <div
@@ -25,9 +57,14 @@ const Write = ({ setModal }: propsType) => {
         <textarea
           className="w-full h-full p-3 resize-none"
           placeholder="내용을 입력하세요."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
         <div className="p-3">
-          <button className="w-full h-10 bg-[#D97706] rounded-3xl text-white tracking-widest">
+          <button
+            className="w-full h-10 bg-[#D97706] rounded-3xl text-white tracking-widest"
+            onClick={onClick}
+          >
             등록하기
           </button>
         </div>

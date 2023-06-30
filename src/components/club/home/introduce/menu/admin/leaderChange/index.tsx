@@ -1,14 +1,50 @@
+import { setInterceptor } from "@/assets/setInterceptor";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { ParsedUrlQuery } from "querystring";
+import { useState } from "react";
 
 interface propsType {
   setModal: React.Dispatch<boolean>;
+  router: ParsedUrlQuery;
 }
 
-const LeaderChange = ({ setModal }: propsType) => {
+const LeaderChange = ({ setModal, router }: propsType) => {
+  const [studentId, setStudentId] = useState("");
+  const [name, setName] = useState("");
   function onClickHandler() {
     setModal(false);
   }
+  const onClick = () => {
+    const token = localStorage.getItem("token");
+    setInterceptor(token);
+
+    const body = {
+      clubId: router.clubid,
+      studentId: studentId,
+      name: name,
+    };
+
+    axios
+      .put("/api/schoolclub/leader/change", body)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 403) {
+          alert(res.data.message);
+          location.href = "/";
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          location.href = "/login";
+        }
+      });
+  };
 
   return (
     <div
@@ -26,14 +62,21 @@ const LeaderChange = ({ setModal }: propsType) => {
         <input
           className="w-[calc(100%-1.5rem)] h-full px-3 py-1 border-b mx-3 my-1"
           placeholder="1111"
+          value={studentId}
+          onChange={(e) => setStudentId(e.target.value)}
         />
         <label className="text-sm font-300 px-3 pt-4">새동아리장의 이름</label>
         <input
           className="w-[calc(100%-1.5rem)] h-full px-3 py-1 border-b mx-3 my-1"
           placeholder="홍길동"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <div className="px-3 pt-2 pb-3">
-          <button className="w-full h-10 bg-[#D97706] rounded-3xl text-white tracking-widest">
+          <button
+            className="w-full h-10 bg-[#D97706] rounded-3xl text-white tracking-widest"
+            onClick={onClick}
+          >
             변경하기
           </button>
         </div>

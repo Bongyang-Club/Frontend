@@ -18,25 +18,14 @@ const Club = () => {
     setInterceptor(token);
 
     axios
-      .get("/api/schoolclub/my/club")
+      .get("/api/schoolclub")
       .then((res) => {
         console.log(res);
-        if (res.data.code === 403) {
-          // alert(res.data.message);
-          // location.href = "/";
-        } else {
-          // setData(res.data.result);
-          setData(test);
-        }
+        setData(res.data.result);
       })
       .catch((e) => {
         console.log(e);
-        if (e.response.status === 401) {
-          alert(e.response.data);
-          location.href = "/login";
-        } else {
-          setData(test);
-        }
+        setData(test);
       });
   };
 

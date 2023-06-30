@@ -25,8 +25,12 @@ const Menu = ({ router }: Menu) => {
 
   return (
     <div className="max-w-[26rem] w-full flex flex-col justify-center items-center">
-      {openWrite ? <Write setModal={setOpenWrite} /> : ""}
-      {openLeaderChange ? <LeaderChange setModal={setOpenLeaderChange} /> : ""}
+      {openWrite ? <Write setModal={setOpenWrite} router={router} /> : ""}
+      {openLeaderChange ? (
+        <LeaderChange setModal={setOpenLeaderChange} router={router} />
+      ) : (
+        ""
+      )}
       <div className="select-none font-semibold text-4xl mb-8">{club.name}</div>
       <button
         onClick={onClickLeaderChangeHandler}

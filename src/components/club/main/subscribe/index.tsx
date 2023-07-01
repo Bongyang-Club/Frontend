@@ -4,11 +4,11 @@ import Link from "next/link";
 import axios from "axios";
 import { setInterceptor } from "@/assets/setInterceptor";
 
-const test = [{ clubId: "1", image: "http://placehold.it/200x200" }];
+const dummyData = [{ clubId: "1", image: "http://placehold.it/200x200" }];
+const dummyUser = "ROLE_CLUB_LEADER";
 
 const Club = () => {
   const [user, setUser] = useState("");
-  const [id, setId] = useState(1);
   const [data, setData] = useState<any>();
   const [check, setChekc] = useState(false);
 
@@ -29,7 +29,7 @@ const Club = () => {
       })
       .catch((e) => {
         console.log(e);
-        // setData(test);
+        setData(dummyData);
       });
 
     axios
@@ -40,7 +40,7 @@ const Club = () => {
       })
       .catch((e) => {
         console.log(e);
-        // setUser(test);
+        setUser(dummyUser);
       });
 
     setChekc(true);

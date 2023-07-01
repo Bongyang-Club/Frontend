@@ -112,12 +112,6 @@ const Form = () => {
           />
         </div>
         <div className="my-2 text-[#949494] text-sm font-light">
-          아직 계정이 없으신가요?
-          <a href="#" className="text-[#007FD4] mx-2">
-            회원가입
-          </a>
-        </div>
-        <div className="my-2 text-[#949494] text-sm font-light">
           비밀번호가 기억나지 않으신가요?
           <a href="#" className="text-[#007FD4] mx-2">
             비밀번호 변경

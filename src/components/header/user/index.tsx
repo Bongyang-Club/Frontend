@@ -15,6 +15,7 @@ const User = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("token");
+    if (accessToken) return;
     setToken(accessToken);
   }, [token]);
 

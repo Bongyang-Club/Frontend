@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import AdminMenu from "@/components/club/home/introduce/menu/admin";
 import StudentMenu from "@/components/club/home/introduce/menu/student";
 import Img from "@/components/club/home/introduce/img";
-import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 
 type Introduce = {

@@ -62,6 +62,16 @@ const Form = () => {
     }
   }, [secondChecked]);
 
+  function onSubmit() {
+    fetch(`http://localhost:8080/api/schoolclub/application/promotion`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then(() => {
+      window.location.href = "/main";
+    });
+  }
+
   return (
     <div className="w-full h-full flex justify-center items-center xs:p-3">
       <div className="max-w-4xl w-full h-full my-10 xs:my-0 py-20 xs:py-5 xs:px-5 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] flex justify-center bg-white ">
@@ -71,7 +81,10 @@ const Form = () => {
             <span className="font-bold text-2xl xs:text-lg">
               동아리 홍보 신청
             </span>
-            <button className="w-[6rem] flex justify-center ml-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5">
+            <button
+              className="w-[6rem] flex justify-center ml-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5"
+              onClick={onSubmit}
+            >
               신청
             </button>
           </div>

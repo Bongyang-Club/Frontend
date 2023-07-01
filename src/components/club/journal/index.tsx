@@ -3,7 +3,36 @@ import { useState } from "react";
 interface Data {}
 
 const JournalForm = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    clubId: 0,
+    activityDate: "2023-07-01T15:05:09.712Z",
+    activityTime: "",
+    place: "",
+    participantCount: 0,
+    absents: "",
+    total: 0,
+    content: "",
+    leaderRatting: "",
+    studentRatting: "",
+    dueDate: "2023-07-01T15:05:09.712Z",
+    duePlan: "",
+    dueGoal: "",
+    etc: "",
+  });
+
+  function updateData(key: string, value: string | boolean) {
+    setData({ ...data, [key]: value });
+  }
+
+  function onSubmit() {
+    fetch(`http://localhost:8080/api/schoolclub/application/journal`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then(() => {
+      window.location.href = "/main";
+    });
+  }
 
   return (
     <div className="w-full h-full flex justify-center items-center xs:p-3">
@@ -14,7 +43,10 @@ const JournalForm = () => {
             <span className="font-bold text-2xl xs:text-lg">
               동아리 일지 작성
             </span>
-            <button className="w-[6rem] flex ml-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5">
+            <button
+              className="w-[6rem] flex ml-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5"
+              onClick={onSubmit}
+            >
               작성
             </button>
           </div>
@@ -26,7 +58,7 @@ const JournalForm = () => {
               </span>
               <input
                 className="max-w-[20rem] w-full border border-[#DDDDDD] bg-[#F8F8F8] px-2 py-1 text-lg xs:text-base"
-                value={"경북소프트웨어 고등학교"}
+                value={"경북소프트웨어고등학교"}
                 readOnly={true}
               />
             </div>
@@ -59,7 +91,11 @@ const JournalForm = () => {
               <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
                 장소
               </span>
-              <input className="max-w-[18rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base" />
+              <input
+                className="max-w-[18rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base"
+                value={data.place}
+                onChange={(e) => updateData("place", e.target.value)}
+              />
             </div>
           </div>
           <div className="flex justify-between">
@@ -68,14 +104,21 @@ const JournalForm = () => {
               <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
                 활동 일시
               </span>
-              <input className="max-w-[20rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base" />
+              <input
+                className="max-w-[20rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base"
+                value={data.activityDate}
+              />
             </div>
             {/* 활동 시간 */}
             <div className="w-[15rem] flex items-center justify-between mt-[1.5rem] xs:mt-5">
               <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
                 활동 시간
               </span>
-              <input className="max-w-[18rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base" />
+              <input
+                className="max-w-[18rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base"
+                value={data.activityTime}
+                onChange={(e) => updateData("activityTime", e.target.value)}
+              />
             </div>
           </div>
           {/* 참가자 */}
@@ -127,7 +170,11 @@ const JournalForm = () => {
               <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
                 활동 내용
               </span>
-              <textarea className="border border-[#DDDDDD] w-full h-[15rem] resize-none"></textarea>
+              <textarea
+                className="border border-[#DDDDDD] w-full h-[15rem] resize-none"
+                value={data.content}
+                onChange={(e) => updateData("content", e.target.value)}
+              ></textarea>
             </div>
           </div>
           {/* 동아리 대표 평가 */}
@@ -137,7 +184,11 @@ const JournalForm = () => {
                 <p>동아리</p>
                 <p>대표 평가</p>
               </span>
-              <textarea className="border border-[#DDDDDD] w-full h-[8rem] resize-none"></textarea>
+              <textarea
+                className="border border-[#DDDDDD] w-full h-[8rem] resize-none"
+                value={data.leaderRatting}
+                onChange={(e) => updateData("leaderRatting", e.target.value)}
+              ></textarea>
             </div>
           </div>
           {/* 동아리원 평가 */}
@@ -146,7 +197,11 @@ const JournalForm = () => {
               <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
                 동아리원 평가
               </span>
-              <textarea className="border border-[#DDDDDD] w-full h-[8rem] resize-none"></textarea>
+              <textarea
+                className="border border-[#DDDDDD] w-full h-[8rem] resize-none"
+                value={data.studentRatting}
+                onChange={(e) => updateData("studentRatting", e.target.value)}
+              ></textarea>
             </div>
           </div>
           {/* 참가자 */}
@@ -198,7 +253,11 @@ const JournalForm = () => {
               <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
                 기타
               </span>
-              <textarea className="border border-[#DDDDDD] w-full h-[8rem] resize-none"></textarea>
+              <textarea
+                className="border border-[#DDDDDD] w-full h-[8rem] resize-none"
+                value={data.etc}
+                onChange={(e) => updateData("etc", e.target.value)}
+              ></textarea>
             </div>
           </div>
         </div>

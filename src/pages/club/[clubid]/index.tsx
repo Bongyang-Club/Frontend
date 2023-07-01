@@ -4,6 +4,7 @@ import Notification from "@/components/club/home/notification";
 import { useRouter } from "next/router";
 import { setInterceptor } from "@/assets/setInterceptor";
 import axios from "axios";
+import { getToken } from "@/util/useToken";
 
 const ClubHome = () => {
   const router = useRouter();
@@ -16,8 +17,7 @@ const ClubHome = () => {
   }, [router.query]);
 
   const load = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
     axios
       .get(`/api/member/${clubid}`)
       .then((res) => {

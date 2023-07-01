@@ -1,4 +1,5 @@
 import { setInterceptor } from "@/assets/setInterceptor";
+import { getToken } from "@/util/useToken";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -19,8 +20,7 @@ const LeaderChange = ({ setModal, router }: propsType) => {
   }
 
   const send = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
 
     if (!router.clubid) return;
     if (studentId === "") {

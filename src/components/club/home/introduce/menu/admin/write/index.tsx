@@ -1,4 +1,5 @@
 import { setInterceptor } from "@/assets/setInterceptor";
+import { getToken } from "@/util/useToken";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -16,8 +17,7 @@ const Write = ({ setModal, router }: propsType) => {
     setModal(false);
   }
   const onClick = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
 
     const body = {
       clubId: router.clubid,
@@ -28,25 +28,24 @@ const Write = ({ setModal, router }: propsType) => {
       .post("/api/schoolclub/notice", body)
       .then((res) => {
         console.log(res);
+        alert(res.data.message);
         if (res.data.code === 403) {
-          alert(res.data.message);
-          // location.href = "/";
+          location.href = "/";
+        } else {
+          window.location.reload();
         }
       })
       .catch((e) => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          // location.href = "/login";
+          location.href = "/login";
         }
       });
   };
 
   return (
-    <div
-      className="w-full h-full top-0 left-0 fixed flex justify-center items-center z-50 bg-black bg-opacity-30"
-      // onClick={() => onClickHandler()}
-    >
+    <div className="w-full h-full top-0 left-0 fixed flex justify-center items-center z-50 bg-black bg-opacity-30">
       <div className="w-[38rem] xs:w-[20rem] h-[36rem] xs:h-[20rem] bg-white fixed xs:static flex flex-col justify-between bottom-10 right-10 z-50 shadow-2xl rounded-2xl">
         <div className="w-full h-12 bg-[#F5F5F5] border-b rounded-t-2xl flex items-center justify-between p-3">
           <span>새 공지</span>

@@ -1,4 +1,5 @@
 import { setInterceptor } from "@/assets/setInterceptor";
+import { getToken } from "@/util/useToken";
 import axios from "axios";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
@@ -16,8 +17,7 @@ const Menu = ({ router }: Menu) => {
   });
 
   const withDraw = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
 
     const body = {
       id: Number(router.clubid),

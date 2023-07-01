@@ -1,5 +1,6 @@
 import List from "@/assets/list";
 import { setInterceptor } from "@/assets/setInterceptor";
+import { getToken } from "@/util/useToken";
 import {
   faArrowRotateRight,
   faCheck,
@@ -10,7 +11,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
-const test = [
+const dummyData = [
   {
     memberJoinId: 3,
     name: "일일일",
@@ -68,8 +69,7 @@ const Application = () => {
   }, [clubid]);
 
   const load = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
     const body = {
       schoolClubId: clubid,
     };
@@ -78,8 +78,8 @@ const Application = () => {
       .post("/api/schoolclub/application/list", body)
       .then((res) => {
         console.log(res);
+        alert(res.data.message);
         if (res.data.code === 403) {
-          alert(res.data.message);
           location.href = "/";
         } else {
           setData(res.data.result);
@@ -91,14 +91,13 @@ const Application = () => {
           alert(e.response.data);
           location.href = "/login";
         } else {
-          setData(test);
+          setData(dummyData);
         }
       });
   };
 
   const deny = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
 
     const body = {
       schoolClubId: Number(clubid),
@@ -111,9 +110,9 @@ const Application = () => {
       .put("/api/schoolclub/application/deny", body)
       .then((res) => {
         console.log(res);
+        alert(res.data.message);
         if (res.data.code === 403) {
-          alert(res.data.message);
-          // location.href = "/";
+          location.href = "/";
         } else {
           window.location.reload();
         }
@@ -122,14 +121,13 @@ const Application = () => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          // location.href = "/login";
+          location.href = "/login";
         }
       });
   };
 
   const approve = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
 
     const body = {
       schoolClubId: Number(clubid),
@@ -142,8 +140,8 @@ const Application = () => {
       .put("/api/schoolclub/application/approve", body)
       .then((res) => {
         console.log(res);
+        alert(res.data.message);
         if (res.data.code === 403) {
-          alert(res.data.message);
           // location.href = "/";
         } else {
           //.location.reload();

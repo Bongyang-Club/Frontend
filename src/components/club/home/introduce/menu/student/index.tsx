@@ -1,7 +1,6 @@
 import { setInterceptor } from "@/assets/setInterceptor";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import React, { useState } from "react";
 

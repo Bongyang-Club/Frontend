@@ -13,12 +13,24 @@ interface propsType {
 const LeaderChange = ({ setModal, router }: propsType) => {
   const [studentId, setStudentId] = useState("");
   const [name, setName] = useState("");
+
   function onClickHandler() {
     setModal(false);
   }
-  const onClick = () => {
+
+  const send = () => {
     const token = localStorage.getItem("token");
     setInterceptor(token);
+
+    if (!router.clubid) return;
+    if (studentId === "") {
+      alert("새동아리장의 학번을 입력해주세요");
+      return;
+    }
+    if (name === "") {
+      alert("새동아리장의 이름을 입력해주세요");
+      return;
+    }
 
     const body = {
       clubId: router.clubid,
@@ -31,11 +43,11 @@ const LeaderChange = ({ setModal, router }: propsType) => {
       .then((res) => {
         console.log(res);
         if (res.data.code === 403) {
-          alert(res.data.message);
           location.href = "/";
         } else {
           window.location.reload();
         }
+        alert(res.data.message);
       })
       .catch((e) => {
         console.log(e);
@@ -47,10 +59,7 @@ const LeaderChange = ({ setModal, router }: propsType) => {
   };
 
   return (
-    <div
-      className="w-full h-full top-0 left-0 fixed flex justify-center items-center z-40 bg-black bg-opacity-30"
-      // onClick={() => onClickHandler()}
-    >
+    <div className="w-full h-full top-0 left-0 fixed flex justify-center items-center z-40 bg-black bg-opacity-30">
       <div className="w-[20rem] bg-white flex flex-col justify-between shadow-2xl rounded-2xl z-50">
         <div className="w-full h-12 bg-[#F5F5F5] border-b rounded-t-2xl flex items-center justify-between p-3">
           <span>동아리장 변경</span>
@@ -71,11 +80,16 @@ const LeaderChange = ({ setModal, router }: propsType) => {
           placeholder="홍길동"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              send();
+            }
+          }}
         />
         <div className="px-3 pt-2 pb-3">
           <button
             className="w-full h-10 bg-[#D97706] rounded-3xl text-white tracking-widest"
-            onClick={onClick}
+            onClick={send}
           >
             변경하기
           </button>

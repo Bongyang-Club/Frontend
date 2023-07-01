@@ -9,7 +9,7 @@ const ClubHome = () => {
   const router = useRouter();
   const clubid = router.query.clubid;
   const [user, setUser] = useState(false);
-  // const [user, setUser] = useState({ role: "ROLE_STUDENT" });
+
   useEffect(() => {
     if (!router.query || Object.keys(router.query).length === 0) return;
     load();

@@ -71,10 +71,12 @@ const ClubList = () => {
   return data ? (
     <List
       data={data}
+      text={"동아리 없음"}
       checked={checked}
       setChecked={setChecked}
       th={["동아리명", "동아리장", "전공/자율"]}
-      td={["memberJoinId", "name", "studentId", "joinAt"]}
+      td={["clubId", "clubName", "leaderName", "type"]}
+      type={"link"}
     >
       <div className="w-10 flex justify-center">
         <FontAwesomeIcon

@@ -75,6 +75,8 @@ const Form = () => {
               신청
             </button>
           </div>
+          {/* 포스터 이미지 */}
+          <input type="file" />
           {/* 동아리 명 */}
           <div className="w-full flex items-center justify-between mt-[3rem] xs:mt-5">
             <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">

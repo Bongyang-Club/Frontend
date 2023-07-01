@@ -161,6 +161,7 @@ const Application = () => {
   return data ? (
     <List
       data={data}
+      text={"신청자 없음"}
       checked={checked}
       setChecked={setChecked}
       th={["신청자명", "학번", "신청일"]}

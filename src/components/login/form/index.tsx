@@ -28,7 +28,11 @@ const Form = () => {
         console.log(res);
         if (res.data.code === 200) {
           setToken(res.data.result.token, 60);
-          location.href = "/";
+          if (res.data.result.role === "ROLE_ADMIN") {
+            location.href = "/admin";
+          } else {
+            location.href = "/";
+          }
         } else if (res.data.code === 403) {
           alert(res.data.message);
         }
@@ -60,6 +64,11 @@ const Form = () => {
             id="pw"
             value={pw}
             onChange={(e) => setPw(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                send();
+              }
+            }}
             className="border-b p-1 outline-0"
           />
         </div>

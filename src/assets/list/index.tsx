@@ -1,18 +1,30 @@
 import Checkbox from "@/assets/checkbox";
 import { faCheck, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type ListProps = {
   data: any;
+  text: string;
   children?: React.ReactNode;
   th: any;
   td: any;
   checked: any;
   setChecked: any;
+  type?: string;
 };
 
-const List = ({ data, children, th, td, checked, setChecked }: ListProps) => {
+const List = ({
+  data,
+  text,
+  children,
+  th,
+  td,
+  checked,
+  setChecked,
+  type,
+}: ListProps) => {
   const [checkedAll, setCheckedAll] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -47,7 +59,7 @@ const List = ({ data, children, th, td, checked, setChecked }: ListProps) => {
 
   return data ? (
     <div className="w-full h-full flex justify-center xs:p-3">
-      <div className="max-w-4xl w-full h-full my-10 xs:my-5 rounded-md bg-white">
+      <div className="max-w-4xl w-full h-full min-h-[49rem] flex flex-col my-10 xs:my-5 rounded-md bg-white">
         <div className="flex flex-row h-10 px-5 pt-2 items-center rounded-t-md text-white bg-[#D97706]">
           <div className="w-10 flex justify-center">
             <Checkbox
@@ -83,28 +95,53 @@ const List = ({ data, children, th, td, checked, setChecked }: ListProps) => {
           <div className="w-40 flex justify-center">{th[1]}</div>
           <div className="w-60 flex justify-center ml-auto">{th[2]}</div>
         </div>
-        {data.map((v: any, i: any) => (
-          <div
-            key={i}
-            className="flex flex-row h-10 items-center text-black bg-white rounded-md"
-          >
-            <div className="w-20 flex justify-center">
-              <Checkbox
-                id={v[td[0]]}
-                checked={checked[v[td[0]]]}
-                onChange={handleCheck}
-                // eslint-disable-next-line react/no-children-prop
-                children={
-                  checked[v[td[0]]] ? <FontAwesomeIcon icon={faCheck} /> : null
-                }
-                disabled={false}
-              />
+        {data.length > 0 ? (
+          data.map((v: any, i: any) => (
+            <div
+              key={i}
+              className="flex flex-row h-10 items-center text-black bg-white rounded-md"
+            >
+              <div className="w-20 flex justify-center">
+                <Checkbox
+                  id={v[td[0]]}
+                  checked={checked[v[td[0]]]}
+                  onChange={handleCheck}
+                  // eslint-disable-next-line react/no-children-prop
+                  children={
+                    checked[v[td[0]]] ? (
+                      <FontAwesomeIcon icon={faCheck} />
+                    ) : null
+                  }
+                  disabled={false}
+                />
+              </div>
+              {type === "link" ? (
+                <Link
+                  href={`/club/${data.clubId}`}
+                  className="w-[calc(100%-5rem)] flex"
+                >
+                  <div className="w-40 flex justify-center">{v[td[1]]}</div>
+                  <div className="w-40 flex justify-center">{v[td[2]]}</div>
+                  <div className="w-60 flex justify-center ml-auto">
+                    {v[td[3]]}
+                  </div>
+                </Link>
+              ) : (
+                <>
+                  <div className="w-40 flex justify-center">{v[td[1]]}</div>
+                  <div className="w-40 flex justify-center">{v[td[2]]}</div>
+                  <div className="w-60 flex justify-center ml-auto">
+                    {v[td[3]]}
+                  </div>
+                </>
+              )}
             </div>
-            <div className="w-40 flex justify-center">{v[td[1]]}</div>
-            <div className="w-40 flex justify-center">{v[td[2]]}</div>
-            <div className="w-60 flex justify-center ml-auto">{v[td[3]]}</div>
+          ))
+        ) : (
+          <div className="w-full m-auto flex justify-center items-center">
+            {text}
           </div>
-        ))}
+        )}
       </div>
     </div>
   ) : (

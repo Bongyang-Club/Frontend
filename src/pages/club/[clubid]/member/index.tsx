@@ -83,6 +83,7 @@ const MemberList = () => {
   return data ? (
     <List
       data={data}
+      text={"동아리원 없음"}
       checked={checked}
       setChecked={setChecked}
       th={["이름", "학번", "가입일"]}

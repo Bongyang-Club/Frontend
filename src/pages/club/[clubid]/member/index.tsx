@@ -1,7 +1,10 @@
 import List from "@/assets/list";
 import { setInterceptor } from "@/assets/setInterceptor";
 import { getToken } from "@/util/useToken";
-import { faArrowRotateRight, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRotateRight,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -46,8 +49,8 @@ const MemberList = () => {
     const list = [];
     console.log(checked);
     for (let i = 0; i < data.length; i++) {
-      if (checked[data[i]["memberJoinId"]] == true) {
-        list.push(data[i]["memberJoinId"]);
+      if (checked[data[i]["sinumber"]] == true) {
+        list.push(data[i]["sinumber"]);
       }
     }
 
@@ -96,8 +99,8 @@ const MemberList = () => {
     setInterceptor(getToken());
 
     const body = {
-      schoolClubId: Number(clubid),
-      memberJoinIds: checkedList(),
+      clubId: Number(clubid),
+      memberIds: checkedList(),
     };
 
     console.log(body);
@@ -117,7 +120,7 @@ const MemberList = () => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          location.href = "/login";
+          // location.href = "/login";
         }
       });
   };
@@ -129,7 +132,7 @@ const MemberList = () => {
       checked={checked}
       setChecked={setChecked}
       th={["이름", "학번", "가입일"]}
-      td={["memberJoinId", "name", "studentId", "joinAt"]}
+      td={["sinumber", "name", "studentId", "joinAt"]}
     >
       <div className="w-10 flex justify-center">
         <FontAwesomeIcon
@@ -140,15 +143,15 @@ const MemberList = () => {
           }}
         />
       </div>
-      {/* <div className="w-10 flex justify-center">
+      <div className="w-10 flex justify-center">
         <FontAwesomeIcon
-          icon={faCheck}
+          icon={faTrashCan}
           className="cursor-pointer"
           onClick={() => {
             deny();
           }}
         />
-      </div> */}
+      </div>
     </List>
   ) : (
     <div>data is undefined</div>

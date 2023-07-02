@@ -8,15 +8,8 @@ import { getToken } from "@/util/useToken";
 import axios from "axios";
 
 type Introduce = {
-  user: boolean;
+  user: any;
   router: ParsedUrlQuery;
-};
-
-type Club = {
-  clubName: string;
-  leaderName: string;
-  teacherName: string;
-  imageUrl: string;
 };
 
 const dummyData = {
@@ -27,7 +20,8 @@ const dummyData = {
 };
 
 const Introduce = ({ user, router }: Introduce) => {
-  const [data, setData] = useState<Club>();
+  const [data, setData] = useState<any>();
+  const [check, setCheck] = useState(false);
 
   useEffect(() => {
     if (!router || Object.keys(router).length === 0) return;
@@ -42,7 +36,7 @@ const Introduce = ({ user, router }: Introduce) => {
         console.log(res.data.result);
         if (res.data.code === 403) {
           alert(res.data.message);
-          location.href = "/";
+          // location.href = "/";
         } else {
           setData(res.data.result);
         }
@@ -51,14 +45,15 @@ const Introduce = ({ user, router }: Introduce) => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          location.href = "/login";
+          // location.href = "/login";
         } else {
           setData(dummyData);
         }
       });
+    setCheck(true);
   };
 
-  return data ? (
+  return check ? (
     <div className="flex flex-row bg-[#Ffffff] max-w-4xl w-full shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10 xs:mt-5 xs:h-max-[10rem] xs:h-full">
       {user ? (
         <AdminMenu router={router} club={data} />
@@ -68,7 +63,7 @@ const Introduce = ({ user, router }: Introduce) => {
       <Img user={user} club={data} />
     </div>
   ) : (
-    ""
+    <></>
   );
 };
 

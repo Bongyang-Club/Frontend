@@ -9,7 +9,7 @@ import { getToken } from "@/util/useToken";
 const ClubHome = () => {
   const router = useRouter();
   const clubid = router.query.clubid;
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     if (!router.query || Object.keys(router.query).length === 0) return;

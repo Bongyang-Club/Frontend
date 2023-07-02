@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { getToken } from "@/util/useToken";
 
 type Notification = {
-  user: boolean;
+  user: any;
 };
 
 const dummyData = [
@@ -100,7 +100,7 @@ const Notification = ({ user }: Notification) => {
               {v.createdAt}
             </div>
           </div>
-          {user ? (
+          {user !== "" ? (
             <div
               className={
                 "rounded-full w-10 xs:w-8 h-10 xs:h-8 flex justify-center items-center " +

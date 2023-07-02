@@ -4,7 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 type Img = {
-  user: boolean;
+  user: any;
   club: any;
 };
 
@@ -52,7 +52,7 @@ const Img = ({ user, club }: Img) => {
 
   return (
     <div className="cursor-pointer max-w-[30rem] w-full h-full overflow-hidden flex justify-center items-center xs:hidden">
-      {user ? (
+      {user !== "" ? (
         <>
           <div className="relative w-[500px] h-[500px] overflow-hidden flex justify-center items-center">
             <img

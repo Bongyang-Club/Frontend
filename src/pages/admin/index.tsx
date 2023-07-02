@@ -1,5 +1,6 @@
 import List from "@/assets/list";
 import { setInterceptor } from "@/assets/setInterceptor";
+import { getToken } from "@/util/useToken";
 import { faArrowRotateRight, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -43,8 +44,7 @@ const ClubList = () => {
   }, []);
 
   const load = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
 
     axios
       .get("/api/admin/clubs")

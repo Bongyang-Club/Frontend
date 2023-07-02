@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { setToken } from "@/util/useToken";
+import { setName } from "@/util/useUser";
 
 const Form = () => {
   const [checked, setChecked] = useState(false);
@@ -27,7 +28,9 @@ const Form = () => {
       .then((res) => {
         console.log(res);
         if (res.data.code === 200) {
+          setName(res.data.result.name, 60);
           setToken(res.data.result.token, 60);
+          setId(res.data.result.studentId);
           if (res.data.result.role === "ROLE_ADMIN") {
             location.href = "/admin";
           } else {

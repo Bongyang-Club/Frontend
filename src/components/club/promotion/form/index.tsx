@@ -1,3 +1,4 @@
+import { getToken } from "@/util/useToken";
 import { useEffect, useState } from "react";
 
 const Form = () => {
@@ -65,10 +66,13 @@ const Form = () => {
   function onSubmit() {
     fetch(`http://localhost:8080/api/schoolclub/application/promotion`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     }).then(() => {
-      window.location.href = "/main";
+      window.location.href = "/";
     });
   }
 

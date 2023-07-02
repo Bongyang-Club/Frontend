@@ -30,7 +30,7 @@ const JournalForm = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     }).then(() => {
-      window.location.href = "/main";
+      window.location.href = "/";
     });
   }
 
@@ -62,37 +62,13 @@ const JournalForm = () => {
                 readOnly={true}
               />
             </div>
-            {/* 지도교사 */}
-            <div className="w-[15rem] flex items-center justify-between mt-[3rem] xs:mt-5">
-              <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
-                지도교사
-              </span>
-              <input
-                className="max-w-[12rem] w-full border border-[#DDDDDD] bg-[#F8F8F8] px-2 py-1 text-lg xs:text-base"
-                value={"이현정"}
-                readOnly={true}
-              />
-            </div>
-          </div>
-          {/* 동아리 명 */}
-          <div className="flex justify-between">
-            <div className="w-[20rem] flex items-center justify-between mt-[1.5rem] xs:mt-5">
-              <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
-                동아리 명
-              </span>
-              <input
-                className="max-w-[20rem] w-full border border-[#DDDDDD] bg-[#F8F8F8] px-2 py-1 text-lg xs:text-base"
-                value={"봉양클럽"}
-                readOnly={true}
-              />
-            </div>
             {/* 장소 */}
-            <div className="w-[15rem] flex items-center justify-between mt-[1.5rem] xs:mt-5">
+            <div className="w-[15rem] flex items-center justify-between mt-[3rem] xs:mt-5">
               <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
                 장소
               </span>
               <input
-                className="max-w-[18rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base"
+                className="max-w-[12rem] w-full border border-[#DDDDDD] px-2 py-1 text-lg xs:text-base"
                 value={data.place}
                 onChange={(e) => updateData("place", e.target.value)}
               />
@@ -136,7 +112,15 @@ const JournalForm = () => {
                     </span>
                   </td>
                   <td className="border border-[#DDDDDD]">
-                    <input className="w-full px-2 py-1 text-lg xs:text-base" />
+                    <input
+                      className="w-full px-2 py-1 text-lg xs:text-base"
+                      type="number"
+                      min="0"
+                      value={data.participantCount}
+                      onChange={(e) =>
+                        updateData("participantCount", e.target.value)
+                      }
+                    />
                   </td>
                 </tr>
                 {/* 결석인원 */}
@@ -147,7 +131,11 @@ const JournalForm = () => {
                     </span>
                   </td>
                   <td className="border border-[#DDDDDD]">
-                    <input className="w-full px-2 py-1 text-lg xs:text-base" />
+                    <input
+                      className="w-full px-2 py-1 text-lg xs:text-base"
+                      value={data.absents}
+                      onChange={(e) => updateData("absents", e.target.value)}
+                    />
                   </td>
                 </tr>
                 {/* 누 계 */}
@@ -158,7 +146,13 @@ const JournalForm = () => {
                     </span>
                   </td>
                   <td className="border border-[#DDDDDD]">
-                    <input className="w-full px-2 py-1 text-lg xs:text-base" />
+                    <input
+                      className="w-full px-2 py-1 text-lg xs:text-base"
+                      type="number"
+                      min="0"
+                      value={data.total}
+                      onChange={(e) => updateData("total", e.target.value)}
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -204,49 +198,7 @@ const JournalForm = () => {
               ></textarea>
             </div>
           </div>
-          {/* 참가자 */}
-          <div className="w-full flex items-center justify-between mt-[3rem] xs:mt-5">
-            <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
-              참가자
-            </span>
-            <table className="w-full border border-[#DDDDDD]">
-              <tbody>
-                {/* 참가인원 */}
-                <tr>
-                  <td className="border border-[#DDDDDD] align-middle text-center p-1 w-[10rem]">
-                    <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
-                      참가인원
-                    </span>
-                  </td>
-                  <td className="border border-[#DDDDDD]">
-                    <input className="w-full px-2 py-1 text-lg xs:text-base" />
-                  </td>
-                </tr>
-                {/* 결석인원 */}
-                <tr>
-                  <td className="border border-[#DDDDDD] align-middle text-center p-1 w-[10rem]">
-                    <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
-                      결석인원
-                    </span>
-                  </td>
-                  <td className="border border-[#DDDDDD]">
-                    <input className="w-full px-2 py-1 text-lg xs:text-base" />
-                  </td>
-                </tr>
-                {/* 누 계 */}
-                <tr>
-                  <td className="border border-[#DDDDDD] align-middle text-center p-1 w-[10rem]">
-                    <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
-                      누 계
-                    </span>
-                  </td>
-                  <td className="border border-[#DDDDDD]">
-                    <input className="w-full px-2 py-1 text-lg xs:text-base" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
           {/* 기타 */}
           <div className="flex">
             <div className="w-full flex items-center justify-between mt-[1.5rem] xs:mt-5">

@@ -2,22 +2,31 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { getToken } from "@/util/useToken";
+import { getName, getStudentId } from "@/util/useUser";
 
 const User = () => {
   const [check, setCheck] = useState(false);
   const [token, setToken] = useState<any>();
-  const [user, setUser] = useState({ studentId: 3208, name: "박대형" });
+  const [user, setUser] = useState<any>();
 
   const logout = () => {
     localStorage.removeItem("token");
-    window.location.reload();
+    window.location.href = "/";
+    // window.location.reload();
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("token");
-    if (accessToken) return;
-    setToken(accessToken);
-  }, [token]);
+    if (localStorage.getItem("token")) {
+      const accessToken = getToken();
+      const name = getName();
+      const id = getStudentId();
+      if (accessToken) {
+        setToken(accessToken);
+        setUser({ name: name, id: id });
+      }
+    }
+  }, []);
 
   return token ? (
     !check ? (
@@ -26,7 +35,7 @@ const User = () => {
         onClick={() => setCheck(true)}
       >
         <div className="text-[#D97706] font-medium pr-2 select-none xs:text-sm">
-          {user.studentId} {user.name} 님
+          {user.name} 님
         </div>
         <FontAwesomeIcon
           icon={faAngleRight}

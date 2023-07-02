@@ -9,7 +9,7 @@ export function getToken() {
     expire: number;
   };
 
-  const obj: token = JSON.parse(localStorage.getItem("token") ?? "");
+  const obj: token = JSON.parse(localStorage.getItem("token") ?? "{}");
 
   if (obj.expire < Date.now()) {
     localStorage.removeItem("token");

@@ -9,6 +9,8 @@ export function getToken() {
     expire: number;
   };
 
+  if (localStorage.getItem("token") === null) return "";
+
   const obj: token = JSON.parse(localStorage.getItem("token") ?? "");
 
   if (obj.expire < Date.now()) {

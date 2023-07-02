@@ -42,6 +42,18 @@ const MemberList = () => {
   const [clubid, setClubid] = useState<any>();
   const [data, setData] = useState<any>();
 
+  const checkedList = () => {
+    const list = [];
+    console.log(checked);
+    for (let i = 0; i < data.length; i++) {
+      if (checked[data[i]["memberJoinId"]] == true) {
+        list.push(data[i]["memberJoinId"]);
+      }
+    }
+
+    return list;
+  };
+
   useEffect(() => {
     if (!router.isReady) return;
     setClubid(router.query.clubid);
@@ -80,6 +92,36 @@ const MemberList = () => {
       });
   };
 
+  const deny = () => {
+    setInterceptor(getToken());
+
+    const body = {
+      schoolClubId: Number(clubid),
+      memberJoinIds: checkedList(),
+    };
+
+    console.log(body);
+
+    axios
+      .put("/api/schoolclub/club/delete/member", body)
+      .then((res) => {
+        console.log(res);
+        alert(res.data.message);
+        if (res.data.code === 403) {
+          location.href = "/";
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          location.href = "/login";
+        }
+      });
+  };
+
   return data ? (
     <List
       data={data}
@@ -98,15 +140,15 @@ const MemberList = () => {
           }}
         />
       </div>
-      <div className="w-10 flex justify-center">
+      {/* <div className="w-10 flex justify-center">
         <FontAwesomeIcon
           icon={faCheck}
           className="cursor-pointer"
           onClick={() => {
-            // deny();
+            deny();
           }}
         />
-      </div>
+      </div> */}
     </List>
   ) : (
     <div>data is undefined</div>

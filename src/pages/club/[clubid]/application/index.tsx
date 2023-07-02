@@ -142,16 +142,16 @@ const Application = () => {
         console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
-          // location.href = "/";
+          location.href = "/";
         } else {
-          //.location.reload();
+          window.location.reload();
         }
       })
       .catch((e) => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          // location.href = "/login";
+          location.href = "/login";
         }
       });
   };

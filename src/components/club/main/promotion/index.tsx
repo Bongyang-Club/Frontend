@@ -15,8 +15,6 @@ const Club = () => {
   }, []);
 
   const load = () => {
-    setInterceptor(getToken());
-
     axios
       .get("/api/schoolclub/promotions")
       .then((res) => {

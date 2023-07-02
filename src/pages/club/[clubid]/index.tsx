@@ -4,6 +4,7 @@ import Notification from "@/components/club/home/notification";
 import { useRouter } from "next/router";
 import { setInterceptor } from "@/assets/setInterceptor";
 import axios from "axios";
+import { getToken } from "@/util/useToken";
 
 const ClubHome = () => {
   const router = useRouter();
@@ -16,15 +17,14 @@ const ClubHome = () => {
   }, [router.query]);
 
   const load = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
     axios
       .get(`/api/member/${clubid}`)
       .then((res) => {
         console.log(res);
         if (res.data.code === 403) {
           alert(res.data.message);
-          // location.href = "/";
+          location.href = "/";
         } else {
           setUser(res.data.result);
         }
@@ -33,7 +33,7 @@ const ClubHome = () => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          // location.href = "/login";
+          location.href = "/login";
         }
       });
   };

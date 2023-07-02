@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { getToken } from "@/util/useToken";
-import { setInterceptor } from "@/assets/setInterceptor";
 
 type ReturnType = {
   code: number;

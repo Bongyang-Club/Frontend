@@ -1,12 +1,13 @@
 import List from "@/assets/list";
 import { setInterceptor } from "@/assets/setInterceptor";
+import { getToken } from "@/util/useToken";
 import { faArrowRotateRight, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-const test = [
+const dummyData = [
   {
     memberJoinId: 3,
     name: "일일일",
@@ -41,6 +42,18 @@ const MemberList = () => {
   const [clubid, setClubid] = useState<any>();
   const [data, setData] = useState<any>();
 
+  const checkedList = () => {
+    const list = [];
+    console.log(checked);
+    for (let i = 0; i < data.length; i++) {
+      if (checked[data[i]["memberJoinId"]] == true) {
+        list.push(data[i]["memberJoinId"]);
+      }
+    }
+
+    return list;
+  };
+
   useEffect(() => {
     if (!router.isReady) return;
     setClubid(router.query.clubid);
@@ -52,8 +65,7 @@ const MemberList = () => {
   }, [clubid]);
 
   const load = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
     const body = {
       id: clubid,
     };
@@ -62,9 +74,9 @@ const MemberList = () => {
       .post("/api/schoolclub/members", body)
       .then((res) => {
         console.log(res);
+        alert(res.data.message);
         if (res.data.code === 403) {
-          // alert(res.data.message);
-          // location.href = "/";
+          location.href = "/";
         } else {
           setData(res.data.result);
         }
@@ -75,7 +87,37 @@ const MemberList = () => {
           alert(e.response.data);
           location.href = "/login";
         } else {
-          setData(test);
+          setData(dummyData);
+        }
+      });
+  };
+
+  const deny = () => {
+    setInterceptor(getToken());
+
+    const body = {
+      schoolClubId: Number(clubid),
+      memberJoinIds: checkedList(),
+    };
+
+    console.log(body);
+
+    axios
+      .put("/api/schoolclub/club/delete/member", body)
+      .then((res) => {
+        console.log(res);
+        alert(res.data.message);
+        if (res.data.code === 403) {
+          location.href = "/";
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          alert(e.response.data);
+          location.href = "/login";
         }
       });
   };
@@ -98,15 +140,15 @@ const MemberList = () => {
           }}
         />
       </div>
-      <div className="w-10 flex justify-center">
+      {/* <div className="w-10 flex justify-center">
         <FontAwesomeIcon
           icon={faCheck}
           className="cursor-pointer"
           onClick={() => {
-            // deny();
+            deny();
           }}
         />
-      </div>
+      </div> */}
     </List>
   ) : (
     <div>data is undefined</div>

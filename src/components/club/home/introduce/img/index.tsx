@@ -4,9 +4,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 type Img = {
   user: boolean;
+  club: any;
 };
 
-const Img = ({ user }: Img) => {
+const Img = ({ user, club }: Img) => {
   const [img, setImg] = useState("http://placehold.it/500x500");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -58,7 +59,7 @@ const Img = ({ user }: Img) => {
       ) : (
         <div className="relative w-[500px] h-[500px] overflow-hidden flex justify-center items-center">
           <img
-            src={img}
+            src={club.imageUrl}
             className="z-10 opacity-100 top-0 w-full h-full object-cover"
           />
         </div>

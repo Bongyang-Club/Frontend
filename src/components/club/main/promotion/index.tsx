@@ -3,6 +3,7 @@ import Content from "@/components/club/main/promotion/content";
 import Link from "next/link";
 import axios from "axios";
 import { setInterceptor } from "@/assets/setInterceptor";
+import { getToken } from "@/util/useToken";
 
 const test = [{ id: "1", img: "http://placehold.it/200x200" }];
 
@@ -14,9 +15,6 @@ const Club = () => {
   }, []);
 
   const load = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
-
     axios
       .get("/api/schoolclub/promotions")
       .then((res) => {

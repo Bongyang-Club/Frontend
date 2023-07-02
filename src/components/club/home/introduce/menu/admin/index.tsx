@@ -6,10 +6,17 @@ import LeaderChange from "./leaderChange";
 
 type Menu = {
   router: ParsedUrlQuery;
+  club: Club;
 };
 
-const Menu = ({ router }: Menu) => {
-  const [club, setClub] = useState({ name: "봉양클럽" });
+type Club = {
+  clubName: string;
+  leaderName: string;
+  teacherName: string;
+  imageUrl: string;
+};
+
+const Menu = ({ router, club }: Menu) => {
   const [openWrite, setOpenWrite] = useState(false);
   const [openLeaderChange, setOpenLeaderChange] = useState(false);
 
@@ -31,7 +38,9 @@ const Menu = ({ router }: Menu) => {
       ) : (
         ""
       )}
-      <div className="select-none font-semibold text-4xl mb-8">{club.name}</div>
+      <div className="select-none font-semibold text-4xl mb-8">
+        {club.clubName}
+      </div>
       <button
         onClick={onClickLeaderChangeHandler}
         className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"

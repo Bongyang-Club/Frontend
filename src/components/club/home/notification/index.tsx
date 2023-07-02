@@ -5,12 +5,13 @@ import { setInterceptor } from "@/assets/setInterceptor";
 import axios from "axios";
 import { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
+import { getToken } from "@/util/useToken";
 
 type Notification = {
   user: boolean;
 };
 
-const test = [
+const dummyData = [
   {
     user: "김무일",
     createdAt: "21시간 전",
@@ -31,37 +32,33 @@ const Notification = ({ user }: Notification) => {
   }, [router.query]);
 
   const load = () => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
     axios
       .get(`/api/schoolclub/notices/${clubid}`)
       .then((res) => {
         console.log(res);
+        alert(res.data.message);
         if (res.data.code === 403) {
-          alert(res.data.message);
-          // location.href = "/";
+          location.href = "/";
         } else {
           setData(res.data.result);
-          console.log(res.data.result);
         }
       })
       .catch((e) => {
         console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
-          // location.href = "/login";
-        } else {
-          setData(test);
+          location.href = "/login";
         }
+        setData(dummyData);
       });
   };
 
   const deny = (noticeId: number) => {
-    const token = localStorage.getItem("token");
-    setInterceptor(token);
+    setInterceptor(getToken());
 
-    console.log(clubid);
-    console.log(typeof clubid);
+    if (!clubid) return;
+    if (!noticeId) return;
 
     const body = {
       clubId: Number(clubid),
@@ -72,8 +69,8 @@ const Notification = ({ user }: Notification) => {
       .put("/api/schoolclub/notice", body)
       .then((res) => {
         console.log(res);
+        alert(res.data.message);
         if (res.data.code === 403) {
-          alert(res.data.message);
           location.href = "/";
         } else {
           window.location.reload();
@@ -115,11 +112,11 @@ const Notification = ({ user }: Notification) => {
               {check ? (
                 <div className="absolute z-10 mt-5 flex w-[8rem] -translate-x-12 translate-y-10">
                   <div className="flex-auto rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
-                    <div className="relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
-                      <button
-                        className="select-none font-regular text-gray-900 w-max h-max"
-                        onClick={() => deny(v.id)}
-                      >
+                    <div
+                      className="relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b"
+                      onClick={() => deny(v.id)}
+                    >
+                      <button className="select-none font-regular text-gray-900 w-max h-max">
                         삭제하기
                       </button>
                     </div>

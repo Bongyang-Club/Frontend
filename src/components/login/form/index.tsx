@@ -26,7 +26,6 @@ const Form = () => {
     await axios
       .post("/api/login", data)
       .then((res) => {
-        console.log(res);
         if (res.data.code === 200) {
           setName(res.data.result.name, 60);
           setToken(res.data.result.token, 60);

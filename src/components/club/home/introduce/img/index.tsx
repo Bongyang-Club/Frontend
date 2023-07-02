@@ -17,7 +17,6 @@ const Img = ({ user, club }: Img) => {
       if (!e.target.files) {
         return;
       }
-      console.log(e.target.files[0]);
       const imageSrc = URL.createObjectURL(e.target.files[0]);
       setImg(imageSrc);
     },
@@ -35,14 +34,12 @@ const Img = ({ user, club }: Img) => {
     axios
       .post("/api/schoolclub/lub/image", body)
       .then((res) => {
-        console.log(res);
         if (res.data.code === 403) {
           alert(res.data.message);
         }
         location.href = "/";
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

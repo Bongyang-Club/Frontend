@@ -24,22 +24,18 @@ const Club = () => {
     axios
       .get("/api/schoolclub/my/club")
       .then((res) => {
-        console.log(res);
         setData(res.data.result);
       })
       .catch((e) => {
-        console.log(e);
         setData(dummyData);
       });
 
     axios
       .get("/api/member")
       .then((res) => {
-        console.log(res);
         setUser(res.data.result.role);
       })
       .catch((e) => {
-        console.log(e);
         setUser(dummyUser);
       });
 

@@ -49,7 +49,6 @@ const ClubList = () => {
     axios
       .get("/api/admin/clubs")
       .then((res) => {
-        console.log(res);
         if (res.data.code === 403) {
           // alert(res.data.message);
           // location.href = "/";
@@ -58,7 +57,6 @@ const ClubList = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

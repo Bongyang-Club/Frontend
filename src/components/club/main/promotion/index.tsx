@@ -18,11 +18,9 @@ const Club = () => {
     axios
       .get("/api/schoolclub/promotions")
       .then((res) => {
-        console.log(res);
         setData(res.data.result);
       })
       .catch((e) => {
-        console.log(e);
         setData(test);
       });
   };

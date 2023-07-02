@@ -33,7 +33,6 @@ const Introduce = ({ user, router }: Introduce) => {
     axios
       .get(`/api/schoolclub/${router.clubid}`)
       .then((res) => {
-        console.log(res.data.result);
         if (res.data.code === 403) {
           alert(res.data.message);
           // location.href = "/";
@@ -42,7 +41,6 @@ const Introduce = ({ user, router }: Introduce) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           // location.href = "/login";

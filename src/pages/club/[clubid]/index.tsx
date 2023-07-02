@@ -21,7 +21,6 @@ const ClubHome = () => {
     axios
       .get(`/api/member/${clubid}`)
       .then((res) => {
-        console.log(res);
         if (res.data.code === 403) {
           alert(res.data.message);
           location.href = "/";
@@ -30,7 +29,6 @@ const ClubHome = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

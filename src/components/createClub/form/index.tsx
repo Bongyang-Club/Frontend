@@ -45,9 +45,7 @@ const Form = () => {
         teacher: teacherName,
         clubIntroduce: introduce,
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    }).then((res) => res.json());
   }
   useEffect(() => {
     setTimeout(() => {

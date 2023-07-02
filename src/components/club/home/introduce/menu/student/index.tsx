@@ -28,14 +28,12 @@ const Menu = ({ router, club }: Menu) => {
     axios
       .put("/api/schoolclub/withdraw", body)
       .then((res) => {
-        console.log(res);
         if (res.data.code === 403) {
           alert(res.data.message);
         }
         location.href = "/";
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

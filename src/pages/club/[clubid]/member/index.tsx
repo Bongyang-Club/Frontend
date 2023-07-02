@@ -47,7 +47,6 @@ const MemberList = () => {
 
   const checkedList = () => {
     const list = [];
-    console.log(checked);
     for (let i = 0; i < data.length; i++) {
       if (checked[data[i]["sinumber"]] == true) {
         list.push(data[i]["sinumber"]);
@@ -76,7 +75,6 @@ const MemberList = () => {
     axios
       .post("/api/schoolclub/members", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -85,7 +83,6 @@ const MemberList = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";
@@ -103,12 +100,9 @@ const MemberList = () => {
       memberIds: checkedList(),
     };
 
-    console.log(body);
-
     axios
       .put("/api/schoolclub/club/delete/member", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -117,7 +111,6 @@ const MemberList = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           // location.href = "/login";

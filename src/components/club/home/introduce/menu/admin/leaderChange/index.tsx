@@ -41,7 +41,6 @@ const LeaderChange = ({ setModal, router }: propsType) => {
     axios
       .put("/api/schoolclub/leader/change", body)
       .then((res) => {
-        console.log(res);
         if (res.data.code === 403) {
           location.href = "/";
         } else {
@@ -50,7 +49,6 @@ const LeaderChange = ({ setModal, router }: propsType) => {
         alert(res.data.message);
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

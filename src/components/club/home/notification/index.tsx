@@ -36,7 +36,6 @@ const Notification = ({ user }: Notification) => {
     axios
       .get(`/api/schoolclub/notices/${clubid}`)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -45,7 +44,6 @@ const Notification = ({ user }: Notification) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";
@@ -68,7 +66,6 @@ const Notification = ({ user }: Notification) => {
     axios
       .put("/api/schoolclub/notice", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -77,7 +74,6 @@ const Notification = ({ user }: Notification) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

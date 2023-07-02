@@ -48,7 +48,6 @@ const Application = () => {
 
   const checkedList = () => {
     const list = [];
-    console.log(checked);
     for (let i = 0; i < data.length; i++) {
       if (checked[data[i]["memberJoinId"]] == true) {
         list.push(data[i]["memberJoinId"]);
@@ -77,7 +76,6 @@ const Application = () => {
     axios
       .post("/api/schoolclub/application/list", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -86,7 +84,6 @@ const Application = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";
@@ -104,12 +101,9 @@ const Application = () => {
       memberJoinIds: checkedList(),
     };
 
-    console.log(body);
-
     axios
       .put("/api/schoolclub/application/deny", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -118,7 +112,6 @@ const Application = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";
@@ -134,12 +127,9 @@ const Application = () => {
       memberJoinIds: checkedList(),
     };
 
-    console.log(body);
-
     axios
       .put("/api/schoolclub/application/approve", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -148,7 +138,6 @@ const Application = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

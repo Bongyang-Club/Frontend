@@ -27,7 +27,6 @@ const Write = ({ setModal, router }: propsType) => {
     axios
       .post("/api/schoolclub/notice", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         if (res.data.code === 403) {
           location.href = "/";
@@ -36,7 +35,6 @@ const Write = ({ setModal, router }: propsType) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           alert(e.response.data);
           location.href = "/login";

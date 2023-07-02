@@ -21,7 +21,6 @@ const dummyData = {
 
 const Introduce = ({ user, router }: Introduce) => {
   const [data, setData] = useState<any>();
-  const [check, setCheck] = useState(false);
 
   useEffect(() => {
     if (!router || Object.keys(router).length === 0) return;
@@ -50,10 +49,9 @@ const Introduce = ({ user, router }: Introduce) => {
           setData(dummyData);
         }
       });
-    setCheck(true);
   };
 
-  return check ? (
+  return data ? (
     <div className="flex flex-row bg-[#Ffffff] max-w-4xl w-full shadow-[0_0_8px_0_rgba(0,0,0,0.3)] mt-10 xs:mt-5 xs:h-max-[10rem] xs:h-full">
       {user ? (
         <AdminMenu router={router} club={data} />

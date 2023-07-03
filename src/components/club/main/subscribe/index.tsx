@@ -76,6 +76,7 @@ const Club = () => {
         <Link href={`/createClub`}>
           <Content
             data={{
+              name: "",
               clubId: "",
               image: { url: "http://placehold.it/200x200" },
             }}

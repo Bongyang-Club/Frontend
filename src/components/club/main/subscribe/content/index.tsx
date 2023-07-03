@@ -8,6 +8,7 @@ type Content = {
 };
 
 type Data = {
+  name: string;
   clubId: string;
   image: {
     url: string;
@@ -15,11 +16,25 @@ type Data = {
 };
 
 const Content = ({ data, type = true }: Content) => {
+  const [check, setCheck] = useState(false);
   if (type) {
     return (
-      <div className="w-[200px] h-[200px] cursor-pointer shadow-md">
+      <div className="relative w-[200px] h-[200px] cursor-pointer shadow-md">
+        <div
+          onMouseOut={() => setCheck(false)}
+          className={
+            "absolute h-full w-full flex justify-center items-center z-10 font-bold text-xl " +
+            (check ? "" : "hidden")
+          }
+        >
+          {data.name}
+        </div>
         <img
-          className="w-full h-full flex justify-center items-center"
+          className={
+            "absolute top-0 left-0 w-full h-full object-cover z-0 " +
+            (check ? "opacity-20 " : "")
+          }
+          onMouseOver={() => setCheck(true)}
           src={
             data.image === null
               ? "http://placehold.it/200x200"

@@ -10,9 +10,7 @@ type Content = {
 type Data = {
   name: string;
   clubId: string;
-  image: {
-    url: string;
-  };
+  image: any;
 };
 
 const Content = ({ data, type = true }: Content) => {

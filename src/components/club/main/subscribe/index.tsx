@@ -5,9 +5,7 @@ import axios from "axios";
 import { setInterceptor } from "@/assets/setInterceptor";
 import { getToken } from "@/util/useToken";
 
-const dummyData = [
-  { clubId: "1", image: { url: "http://placehold.it/200x200" } },
-];
+const dummyData = [{ name: "", clubId: "1", image: null }];
 const dummyUser = false;
 
 const Club = () => {
@@ -78,7 +76,7 @@ const Club = () => {
             data={{
               name: "",
               clubId: "",
-              image: { url: "http://placehold.it/200x200" },
+              image: null,
             }}
             type={false}
           />

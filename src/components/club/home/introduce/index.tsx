@@ -58,7 +58,7 @@ const Introduce = ({ user, router }: Introduce) => {
       ) : (
         <StudentMenu router={router} club={data} />
       )}
-      <Img user={user} club={data} />
+      <Img router={router} user={user} club={data} />
     </div>
   ) : (
     <></>

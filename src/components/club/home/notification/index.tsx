@@ -37,8 +37,8 @@ const Notification = ({ user }: Notification) => {
       .get(`/api/schoolclub/notices/${clubid}`)
       .then((res) => {
         console.log(res);
-        alert(res.data.message);
         if (res.data.code === 403) {
+          alert(res.data.message);
           location.href = "/";
         } else {
           setData(res.data.result);

@@ -4,18 +4,28 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 type Content = {
   data: Data;
+  type?: boolean;
 };
 
 type Data = {
   clubId: string;
-  image: string;
+  image: {
+    url: string;
+  };
 };
 
-const Content = ({ data }: Content) => {
-  if (data.image !== "") {
+const Content = ({ data, type = true }: Content) => {
+  if (type) {
     return (
       <div className="w-[200px] h-[200px] cursor-pointer shadow-md">
-        <img src={data.image} />
+        <img
+          className="w-full h-full flex justify-center items-center"
+          src={
+            data.image === null
+              ? "http://placehold.it/200x200"
+              : `http://localhost:8080/${data.image.url}`
+          }
+        />
       </div>
     );
   } else {

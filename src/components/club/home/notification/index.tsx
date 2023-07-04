@@ -36,8 +36,13 @@ const Notification = ({ user }: Notification) => {
     axios
       .get(`/api/schoolclub/notices/${clubid}`)
       .then((res) => {
+<<<<<<< HEAD
         alert(res.data.message);
+=======
+        console.log(res);
+>>>>>>> 41145321dbcb52fb240b2b8c5a9d12d2cf184b1f
         if (res.data.code === 403) {
+          alert(res.data.message);
           location.href = "/";
         } else {
           setData(res.data.result);

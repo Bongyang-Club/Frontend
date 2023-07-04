@@ -5,11 +5,11 @@ import axios from "axios";
 import { setInterceptor } from "@/assets/setInterceptor";
 import { getToken } from "@/util/useToken";
 
-const dummyData = [{ clubId: "1", image: "http://placehold.it/200x200" }];
-const dummyUser = "ROLE_CLUB_LEADER";
+const dummyData = [{ name: "", clubId: "1", image: null }];
+const dummyUser = false;
 
 const Club = () => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(false);
   const [data, setData] = useState<any>();
   const [check, setChekc] = useState(false);
 
@@ -48,7 +48,7 @@ const Club = () => {
         <div className="mx-6 xs:mx-0 mb-3 xs:mb-0 font-medium text-lg">
           내동아리
         </div>
-        {user === "ROLE_CLUB_LEADER" ? (
+        {user ? (
           <Link
             href={"/club/promotion"}
             className="w-[6rem] flex justify-center mx-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5"
@@ -70,9 +70,11 @@ const Club = () => {
         <Link href={`/createClub`}>
           <Content
             data={{
+              name: "",
               clubId: "",
-              image: "",
+              image: null,
             }}
+            type={false}
           />
         </Link>
       </div>

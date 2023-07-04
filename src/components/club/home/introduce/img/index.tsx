@@ -2,14 +2,20 @@ import React, { useCallback, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { ParsedUrlQuery } from "querystring";
 
 type Img = {
+  router: ParsedUrlQuery;
   user: any;
   club: any;
 };
 
-const Img = ({ user, club }: Img) => {
-  const [img, setImg] = useState("http://placehold.it/500x500");
+const Img = ({ router, user, club }: Img) => {
+  const [img, setImg] = useState(
+    club.imageUrl !== null
+      ? `http://localhost:8080/${club.imageUrl}`
+      : "http://placehold.it/500x500"
+  );
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onUploadImage = useCallback(
@@ -17,27 +23,54 @@ const Img = ({ user, club }: Img) => {
       if (!e.target.files) {
         return;
       }
+<<<<<<< HEAD
+=======
+      var maxSize = 5 * 1024 * 1024;
+      var fileSize = e.target.files[0].size;
+
+      if (fileSize > maxSize) {
+        alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+        return false;
+      }
+      console.log(e.target.files[0]);
+>>>>>>> 41145321dbcb52fb240b2b8c5a9d12d2cf184b1f
       const imageSrc = URL.createObjectURL(e.target.files[0]);
       setImg(imageSrc);
+      sendImg(e.target.files[0]);
     },
     []
   );
 
-  const sendImg = useCallback(() => {
-    if (!inputRef.current) {
-      return;
-    }
-    inputRef.current.click();
+  const sendImg = useCallback((file: any) => {
+    const data = {
+      id: Number(router.clubid),
+    };
 
-    const body = {};
+    const formData = new FormData();
+    formData.append("multipartFile", file);
+    formData.append(
+      "request",
+      new Blob([JSON.stringify(data)], {
+        type: "application/json",
+      })
+    );
 
     axios
-      .post("/api/schoolclub/lub/image", body)
+      .post("/api/schoolclub/club/image", formData, {
+        headers: {
+          "Content-Type": `multipart/form-data`,
+        },
+      })
       .then((res) => {
+<<<<<<< HEAD
         if (res.data.code === 403) {
           alert(res.data.message);
         }
         location.href = "/";
+=======
+        console.log(res);
+        alert(res.data.message);
+>>>>>>> 41145321dbcb52fb240b2b8c5a9d12d2cf184b1f
       })
       .catch((e) => {
         if (e.response.status === 401) {
@@ -47,15 +80,22 @@ const Img = ({ user, club }: Img) => {
       });
   }, []);
 
+  const onClick = useCallback(() => {
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.click();
+  }, []);
+
   return (
     <div className="cursor-pointer max-w-[30rem] w-full h-full overflow-hidden flex justify-center items-center xs:hidden">
-      {user !== "" ? (
+      {user ? (
         <>
           <div className="relative w-[500px] h-[500px] overflow-hidden flex justify-center items-center">
             <img
               src={img}
               className="z-10 opacity-70 top-0 w-full h-full object-cover"
-              onClick={() => sendImg()}
+              onClick={() => onClick()}
             />
           </div>
           <div className="absolute z-20 text-white">
@@ -69,14 +109,14 @@ const Img = ({ user, club }: Img) => {
             <FontAwesomeIcon
               icon={faPlus}
               size="2x"
-              onClick={() => sendImg()}
+              onClick={() => onClick()}
             />
           </div>
         </>
       ) : (
         <div className="relative w-[500px] h-[500px] overflow-hidden flex justify-center items-center">
           <img
-            src={club.imageUrl}
+            src={img}
             className="z-10 opacity-100 top-0 w-full h-full object-cover"
           />
         </div>

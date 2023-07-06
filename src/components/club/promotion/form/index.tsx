@@ -184,15 +184,17 @@ const Form = () => {
                     <div className="w-[28.5rem] flex justify-between">
                       <input
                         className="w-[12.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
-                        value={data.gf_link}
-                        onChange={(e) => updateData("gf_link", e.target.value)}
+                        value={data.startDate}
+                        onChange={(e) =>
+                          updateData("startDate", e.target.value)
+                        }
                         placeholder="ex) 2023-06-22"
                       />
                       <span className="text-3xl">~</span>
                       <input
                         className="w-[12.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
-                        value={data.gf_link}
-                        onChange={(e) => updateData("gf_link", e.target.value)}
+                        value={data.endDate}
+                        onChange={(e) => updateData("endDate", e.target.value)}
                         placeholder="ex) 2023-06-25"
                       />
                     </div>

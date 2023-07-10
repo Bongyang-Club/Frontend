@@ -56,7 +56,7 @@ const User = () => {
             className="text-[#D97706] pt-1 w-7"
           />
         </div>
-        <div className="absolute top-16 z-10 mt-5 flex w-[10rem] -translate-x-5 xs:top-9">
+        <div className="absolute top-16 z-10 mt-5 flex w-[10rem] -translate-x-10 xs:top-9 xs:-translate-x-14">
           <div className="flex-auto rounded-lg bg-white text-sm shadow-lg ring-1 ring-gray-900/5">
             <div className="group relative text-center py-3 px-4 hover:bg-gray-50 rounded-t-lg  border-b">
               <a href="#" className="font-regular text-gray-900 w-max h-max">
@@ -64,7 +64,7 @@ const User = () => {
               </a>
             </div>
             <div
-              className="group relative text-center py-3 px-4 hover:bg-gray-50  rounded-b-lg"
+              className="group relative text-center py-3 px-4 hover:bg-gray-50 rounded-b-lg"
               onClick={() => logout()}
             >
               <div className="font-regular text-gray-900">로그아웃</div>

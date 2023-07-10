@@ -14,7 +14,7 @@ const Form = () => {
   const [inquiryKey, setInquiryKey] = useState<string>("");
   const [inquiryValue, setInquiryValue] = useState<string>("");
 
-  const [data, setData] = useState({
+  const [data, setData] = useState<any>({
     schoolClubName: "",
     googleForm: false,
     interview: false,
@@ -31,6 +31,8 @@ const Form = () => {
     a_time: "",
     a_inquiry: {},
   });
+
+  const [posterFile, setPosterFile] = useState<Blob | null>(null);
 
   function updateData(key: string, value: string | boolean) {
     setData({ ...data, [key]: value });
@@ -57,23 +59,44 @@ const Form = () => {
   }
 
   useEffect(() => {
-    if (secondChecked == false) {
+    if (secondChecked === false) {
       updateData("test", false);
       updateData("interview", false);
     }
   }, [secondChecked]);
 
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      setPosterFile(files[0] as Blob);
+    }
+  }
+
   function onSubmit() {
+    const formData = new FormData();
+
+    formData.append(
+      "request",
+      new Blob([JSON.stringify(data)], { type: "application/json" })
+    );
+    if (posterFile) {
+      formData.append("poster", posterFile);
+    }
+
     fetch(`http://localhost:8080/api/schoolclub/application/promotion`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${getToken()}`,
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
-    }).then(() => {
-      window.location.href = "/";
-    });
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then(() => {
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -93,16 +116,17 @@ const Form = () => {
             </button>
           </div>
           {/* 포스터 이미지 */}
-          <input type="file" />
+          <input type="file" onChange={handleFileChange} />
+
           {/* 동아리 명 */}
           <div className="w-full flex items-center justify-between mt-[3rem] xs:mt-5">
             <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
               동아리명
             </span>
             <input
-              className="max-w-[28.5rem] w-full border border-[#DDDDDD] bg-[#F8F8F8] px-2 py-1 text-lg xs:text-base"
-              value={"봉양클럽"}
-              readOnly={true}
+              className="max-w-[28.5rem] w-full border border-[#DDDDDD]  px-2 py-1 text-lg xs:text-base"
+              value={data.schoolClubName}
+              onChange={(e) => updateData("schoolClubName", e.target.value)}
             />
           </div>
           {/* 지원방법 */}

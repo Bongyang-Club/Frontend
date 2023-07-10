@@ -1,8 +1,11 @@
-import { useState } from "react";
-
-interface Data {}
+import { getToken } from "@/util/useToken";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const JournalForm = () => {
+  const router = useRouter();
+  const clubid: any = router.query.clubid;
+
   const [data, setData] = useState({
     clubId: 0,
     activityDate: "2023-07-01T15:05:09.712Z",
@@ -20,19 +23,26 @@ const JournalForm = () => {
     etc: "",
   });
 
-  function updateData(key: string, value: string | boolean) {
+  function updateData(key: string, value: string | boolean | number) {
     setData({ ...data, [key]: value });
   }
 
   function onSubmit() {
-    fetch(`http://localhost:8080/api/schoolclub/application/journal`, {
+    fetch(`http://localhost:8080/api/schoolclub/journal`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
       body: JSON.stringify(data),
     }).then(() => {
       window.location.href = "/";
     });
   }
+
+  useEffect(() => {
+    updateData("clubId", clubid);
+  }, [clubid]);
 
   return (
     <div className="w-full h-full flex justify-center items-center xs:p-3">
@@ -197,6 +207,32 @@ const JournalForm = () => {
                 onChange={(e) => updateData("studentRatting", e.target.value)}
               ></textarea>
             </div>
+          </div>
+
+          {/* 동아리 계획 */}
+          <div className="w-full flex items-center justify-between mt-[1.5rem] xs:mt-5">
+            <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
+              <p>동아리</p>
+              <p>계획</p>
+            </span>
+            <textarea
+              className="border border-[#DDDDDD] w-full h-[8rem] resize-none"
+              value={data.duePlan}
+              onChange={(e) => updateData("duePlan", e.target.value)}
+            ></textarea>
+          </div>
+
+          {/* 동아리 목표 */}
+          <div className="w-full flex items-center justify-between mt-[1.5rem] xs:mt-5">
+            <span className="text-lg max-w-[5rem] w-full text-[#676767] leading-10 xs:text-base">
+              <p>동아리</p>
+              <p>목표</p>
+            </span>
+            <textarea
+              className="border border-[#DDDDDD] w-full h-[8rem] resize-none"
+              value={data.dueGoal}
+              onChange={(e) => updateData("dueGoal", e.target.value)}
+            ></textarea>
           </div>
 
           {/* 기타 */}

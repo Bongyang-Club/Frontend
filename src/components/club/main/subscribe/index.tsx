@@ -50,7 +50,7 @@ const Club = () => {
         </div>
         {user ? (
           <Link
-            href={"/club/promotion"}
+            href={"/club/createPromotion"}
             className="w-[6rem] flex justify-center mx-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5"
           >
             홍보하기

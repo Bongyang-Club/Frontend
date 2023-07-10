@@ -19,7 +19,7 @@ async function fetcher(url: string) {
   return res.data;
 }
 
-const Form = () => {
+const Form: React.FC = () => {
   const { data, error } = useSWR<ReturnType>("/api/member", fetcher, {
     refreshInterval: 0,
   });
@@ -59,6 +59,7 @@ const Form = () => {
   else {
     if (data?.result == null || undefined) {
       window.location.href = "/";
+      return null;
     } else {
       return (
         <div className="w-full h-[63.3remw-full h-full flex justify-center items-center xs:p-3">

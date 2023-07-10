@@ -23,8 +23,6 @@ const Img = ({ router, user, club }: Img) => {
       if (!e.target.files) {
         return;
       }
-<<<<<<< HEAD
-=======
       var maxSize = 5 * 1024 * 1024;
       var fileSize = e.target.files[0].size;
 
@@ -33,7 +31,6 @@ const Img = ({ router, user, club }: Img) => {
         return false;
       }
       console.log(e.target.files[0]);
->>>>>>> 41145321dbcb52fb240b2b8c5a9d12d2cf184b1f
       const imageSrc = URL.createObjectURL(e.target.files[0]);
       setImg(imageSrc);
       sendImg(e.target.files[0]);
@@ -58,19 +55,12 @@ const Img = ({ router, user, club }: Img) => {
     axios
       .post("/api/schoolclub/club/image", formData, {
         headers: {
-          "Content-Type": `multipart/form-data`,
+          "Content-Type": `mulq tipart/form-data`,
         },
       })
       .then((res) => {
-<<<<<<< HEAD
-        if (res.data.code === 403) {
-          alert(res.data.message);
-        }
-        location.href = "/";
-=======
         console.log(res);
         alert(res.data.message);
->>>>>>> 41145321dbcb52fb240b2b8c5a9d12d2cf184b1f
       })
       .catch((e) => {
         if (e.response.status === 401) {

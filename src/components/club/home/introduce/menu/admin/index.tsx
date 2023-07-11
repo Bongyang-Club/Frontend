@@ -60,7 +60,7 @@ const Menu = ({ router, club }: Menu) => {
         동아리 일지 작성
       </Link>
       <Link
-        href="/club/promotion"
+        href="/club/createPromotion"
         className="cursor-pointer border text-center py-1 my-2 rounded-sm w-36 border-[#B1B1B1] text-[#B1B1B1] hover:text-white hover:bg-[#B1B1B1]"
       >
         동아리 홍보하기

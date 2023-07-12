@@ -149,7 +149,7 @@ const Form = () => {
               </div>
             </div>
             {/* 모집대상 */}
-            {data.postForm?.r_targets[0].length !== 0 ? (
+            {data.postForm?.r_targets[0] ? (
               <div className="w-full flex items-center  justify-between mt-[2rem]">
                 <span className="max-w-[5rem] w-full text-lg text-[#676767] leading-10 xs:text-base">
                   모집대상

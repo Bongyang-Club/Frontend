@@ -36,7 +36,7 @@ const JournalForm = () => {
       },
       body: JSON.stringify(data),
     }).then(() => {
-      window.location.href = "/";
+      window.location.href = `/club/${clubid}`;
     });
   }
 

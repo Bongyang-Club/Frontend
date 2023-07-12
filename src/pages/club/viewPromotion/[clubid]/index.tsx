@@ -155,8 +155,8 @@ const Form = () => {
                   모집대상
                 </span>
                 <div className="flex flex-col max-w-[28.5rem] w-full">
-                  {data.postForm?.r_targets.map((target: any, key: any) => {
-                    target.department.length !== 0 ? (
+                  {data.postForm?.r_targets.map((target: any, key: any) =>
+                    target.department.length ? (
                       <div className="flex w-full items-center py-1" key={key}>
                         <div className="max-w-[2rem] w-full text-lg xs:text-base text-[#676767]">
                           ●
@@ -172,8 +172,8 @@ const Form = () => {
                       </div>
                     ) : (
                       ""
-                    );
-                  })}
+                    )
+                  )}
                 </div>
               </div>
             ) : null}

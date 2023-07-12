@@ -1,4 +1,5 @@
 import { getToken } from "@/util/useToken";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Form = () => {
@@ -29,7 +30,7 @@ const Form = () => {
     a_method: "",
     a_place: "",
     a_time: "",
-    a_inquiry: {},
+    a_inquiry: "",
   });
 
   const [posterFile, setPosterFile] = useState<Blob | null>(null);
@@ -38,14 +39,7 @@ const Form = () => {
     setData({ ...data, [key]: value });
   }
 
-  function updateTarget(key: string, value: number) {
-    setData({ ...data, target: { ...data.target, [key]: value } });
-  }
-
-  function updateInquiry(key: string, value: string) {
-    setData({ ...data, a_inquiry: { ...data.a_inquiry, [key]: value } });
-  }
-
+  // 2차 테스트 여부 확인
   function handleSelectChange(event: any) {
     const { value } = event.target;
 
@@ -58,6 +52,7 @@ const Form = () => {
     }
   }
 
+  // 2차 테스트 변경
   useEffect(() => {
     if (secondChecked === false) {
       updateData("test", false);
@@ -65,6 +60,26 @@ const Form = () => {
     }
   }, [secondChecked]);
 
+  // 대상 지정
+  useEffect(() => {
+    setData({
+      ...data,
+      target: {
+        [targetKey1]: targetValue1,
+        [targetKey2]: targetValue2,
+        [targetKey3]: targetValue3,
+      },
+    });
+  }, [
+    targetKey1,
+    targetKey2,
+    targetKey3,
+    targetValue1,
+    targetValue2,
+    targetValue3,
+  ]);
+
+  // 파일 변경 핸들러
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
     if (files && files.length > 0) {
@@ -72,37 +87,45 @@ const Form = () => {
     }
   }
 
-  function onSubmit() {
+  // 게시글 POST 요청
+  function onSubmit(e: any) {
+    e.preventDefault();
+
     const formData = new FormData();
 
     formData.append(
       "request",
       new Blob([JSON.stringify(data)], { type: "application/json" })
     );
+    console.log(data);
     if (posterFile) {
       formData.append("poster", posterFile);
     }
 
-    fetch(`http://localhost:8080/api/schoolclub/application/promotion`, {
-      method: "POST",
+    axios({
+      url: "http://localhost:8080/api/schoolclub/application/promotion",
+      method: "post",
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then(() => {
-        window.location.href = "/";
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      data: {
+        request: formData.get("request"),
+        poster: formData.get("poster"),
+      },
+    }).then((res) => {
+      window.location.href = "/";
+    });
   }
 
   return (
     <div className="w-full h-full flex justify-center items-center xs:p-3">
       <div className="max-w-4xl w-full h-full my-10 xs:my-0 py-20 xs:py-5 xs:px-5 shadow-[0_0_8px_0_rgba(0,0,0,0.3)] flex justify-center bg-white ">
-        <div className="max-w-[38rem] w-full">
+        <form
+          method="POST"
+          onSubmit={onSubmit}
+          className="max-w-[38rem] w-full"
+        >
           {/* 탑 */}
           <div className="w-full flex justify-between items-center">
             <span className="font-bold text-2xl xs:text-lg">
@@ -110,7 +133,7 @@ const Form = () => {
             </span>
             <button
               className="w-[6rem] flex justify-center ml-6 xs:mx-0 mb-3 xs:mb-0 bg-[#D97706] text-white text-sm rounded-sm py-1 px-5"
-              onClick={onSubmit}
+              type="submit"
             >
               신청
             </button>
@@ -274,7 +297,6 @@ const Form = () => {
                   value={targetKey1}
                   onChange={(e) => {
                     setTargetKey1(e.target.value);
-                    updateTarget(targetKey1, targetValue1);
                   }}
                 />
                 <input
@@ -283,7 +305,6 @@ const Form = () => {
                   value={targetValue1}
                   onChange={(e) => {
                     setTargetValue1(parseInt(e.target.value, 10));
-                    updateTarget(targetKey1, targetValue1);
                   }}
                 />
                 <span className="ml-2 text-lg xs:text-base">명</span>
@@ -294,7 +315,6 @@ const Form = () => {
                   value={targetKey2}
                   onChange={(e) => {
                     setTargetKey2(e.target.value);
-                    updateTarget(targetKey2, targetValue2);
                   }}
                 />
                 <input
@@ -303,7 +323,6 @@ const Form = () => {
                   value={targetValue2}
                   onChange={(e) => {
                     setTargetValue2(parseInt(e.target.value, 10));
-                    updateTarget(targetKey2, targetValue2);
                   }}
                 />
                 <span className="ml-2 text-lg xs:text-base">명</span>
@@ -314,7 +333,6 @@ const Form = () => {
                   value={targetKey3}
                   onChange={(e) => {
                     setTargetKey3(e.target.value);
-                    updateTarget(targetKey3, targetValue3);
                   }}
                 />
                 <input
@@ -323,7 +341,6 @@ const Form = () => {
                   value={targetValue3}
                   onChange={(e) => {
                     setTargetValue3(parseInt(e.target.value, 10));
-                    updateTarget(targetKey3, targetValue3);
                   }}
                 />
                 <span className="ml-2 text-lg xs:text-base">명</span>
@@ -370,26 +387,16 @@ const Form = () => {
             </span>
             <div className="w-[28.5rem] flex justify-between">
               <input
-                className="w-[13.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
-                value={inquiryKey}
+                className="w-full text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
+                value={data.a_inquiry}
                 onChange={(e) => {
-                  setInquiryKey(e.target.value);
-                  updateInquiry(inquiryKey, inquiryValue);
-                }}
-                placeholder="ex. 인스타"
-              />
-              <input
-                className="w-[13.5rem] text-lg xs:text-base px-2 py-1 border border-[#DDDDDD]"
-                value={inquiryValue}
-                onChange={(e) => {
-                  setInquiryValue(e.target.value);
-                  updateInquiry(inquiryKey, inquiryValue);
+                  updateData("a_inquiry", e.target.value);
                 }}
                 placeholder="ex. wlqdp_rkffo"
               />
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

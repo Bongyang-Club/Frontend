@@ -5,7 +5,7 @@ import axios from "axios";
 import { setInterceptor } from "@/assets/setInterceptor";
 import { getToken } from "@/util/useToken";
 
-const dummyData = [{ name: "", clubId: "1", image: null }];
+// const dummyData = [{ name: "", clubId: "1", image: null }];
 const dummyUser = false;
 
 const Club = () => {
@@ -27,7 +27,7 @@ const Club = () => {
         setData(res.data.result);
       })
       .catch((e) => {
-        setData(dummyData);
+        // setData(dummyData);
       });
 
     axios
@@ -67,7 +67,7 @@ const Club = () => {
               </div>
             ))
           : ""}
-        <Link href={`/createClub`}>
+        <Link href={`/club/createClub`}>
           <Content
             data={{
               name: "",

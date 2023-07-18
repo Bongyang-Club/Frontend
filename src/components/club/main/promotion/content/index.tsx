@@ -8,13 +8,19 @@ type Content = {
 
 type Data = {
   id: string;
-  img: string;
+  poster: any;
 };
 
 const Content = ({ data }: Content) => {
   return (
     <div className="max-w-[200px] w-full max-h-[200px] h-full flex justify-center cursor-pointer">
-      <img src={data.img !== "" ? data.img : "http://placehold.it/200x200"} />
+      <img
+        src={
+          data.poster.url !== ""
+            ? `/api/${data.poster.url}`
+            : "http://placehold.it/200x200"
+        }
+      />
     </div>
   );
 };

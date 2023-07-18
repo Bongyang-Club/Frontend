@@ -36,7 +36,7 @@ const Content = ({ data, type = true }: Content) => {
           src={
             data.image === null
               ? "http://placehold.it/200x200"
-              : `http://localhost:8080/${data.image.url}`
+              : `/api/${data.image.url}`
           }
         />
       </div>

@@ -13,7 +13,7 @@ type Img = {
 const Img = ({ router, user, club }: Img) => {
   const [img, setImg] = useState(
     club.imageUrl !== null
-      ? `http://localhost:8080/${club.imageUrl}`
+      ? `/api/${club.imageUrl}`
       : "http://placehold.it/500x500"
   );
   const inputRef = useRef<HTMLInputElement | null>(null);

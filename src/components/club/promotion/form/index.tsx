@@ -103,7 +103,7 @@ const Form = () => {
     }
 
     axios({
-      url: "http://localhost:8080/api/schoolclub/application/promotion",
+      url: "/api/schoolclub/application/promotion",
       method: "post",
       headers: {
         "Content-Type": "multipart/form-data",

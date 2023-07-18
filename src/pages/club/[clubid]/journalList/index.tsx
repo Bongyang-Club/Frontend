@@ -37,7 +37,7 @@ const JournalList = () => {
                   <div className="mb-1 font-medium text-lg xs:text-base">
                     {journal.date}
                   </div>
-                  <a href={`http://localhost:8080/${journal.path}`} download>
+                  <a href={`/api/${journal.path}`} download>
                     다운로드
                   </a>
                 </div>

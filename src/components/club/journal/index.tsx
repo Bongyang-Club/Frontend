@@ -28,7 +28,7 @@ const JournalForm = () => {
   }
 
   function onSubmit() {
-    fetch(`http://localhost:8080/api/schoolclub/journal`, {
+    fetch(`/api/schoolclub/journal  `, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const JournalForm = () => {
       },
       body: JSON.stringify(data),
     }).then(() => {
-      window.location.href = `/club/${clubid}`;
+      // window.location.href = `/club/${clubid}`;
     });
   }
 
